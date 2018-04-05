@@ -1,0 +1,1 @@
+{"build-release-ready":false,"build-debug-ready":false,"devops":false,"deploy-image":"registry.ng.bluemix.net/rvennamdocker/pubsubworker","chart-path":"","ibm-cluster":"mycluster"}

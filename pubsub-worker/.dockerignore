@@ -1,0 +1,6 @@
+#Ignore Liberty server files
+build/liberty/wlp/usr/servers/defaultServer/logs
+build/liberty/wlp/usr/servers/defaultServer/workarea
+build/liberty/wlp/usr/servers/defaultServer/.classCache
+build/liberty/wlp/usr/servers/defaultServer/.pid
+

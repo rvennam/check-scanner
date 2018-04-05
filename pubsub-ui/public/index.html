@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Message Hub Demo!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="javascripts/util.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+  <section class="section">
+
+    <div class="container">
+      <h1 class="title">
+        Message Hub Example
+      </h1>
+      <p class="subtitle">Upload files to Object Storage for background processing.</p>
+
+      <div class="flexContainer">
+        <div class = "fileInput">
+          <p class="subtitle">Upload files</p>
+          <form method="POST" encType="multipart/form-data" id="fileUploadForm">
+
+
+            <div class="field">
+              <label class="label">File</label>
+              <div class="file">
+                <label class="file-label">
+                  <input class="file-input" type="file" name="uploadedFile">
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      Choose a file…
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="field is-grouped">
+              <div class="control">
+                <button class="button is-link" id="btnSubmit" >Submit</button>
+              </div>
+            </div>
+          </form>
+          <span id="result"></span>
+        </div>
+        <div class = "COSContents">
+          <p class="subtitle">Contents in Object Storage</p>
+          <div id = "results" class = "panel">
+          </div>
+        </div>
+      </div>
+  </section>
+  </div>
+
+</body>
+
+</html>

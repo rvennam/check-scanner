@@ -1,0 +1,1 @@
+{"build-release-ready":true,"build-debug-ready":false,"devops":false,"deploy-image":"registry.ng.bluemix.net/rvennamdocker/pubsubui","chart-path":"","ibm-cluster":"mycluster"}

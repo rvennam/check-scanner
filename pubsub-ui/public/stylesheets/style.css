@@ -1,0 +1,22 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.flexContainer {
+  display:flex;
+}
+
+.fileInput {
+  width: 50%;
+  padding: 15px;
+}
+
+.COSContents {
+  width: 50%;
+  padding: 15px;
+}
