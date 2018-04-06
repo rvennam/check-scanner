@@ -22,13 +22,17 @@ var messageHubService = {
 var messageHubInstance = {};
 
 messageHubInstance.producerInstance = new MessageHub(messageHubService);
+console.log('Message Hub producer instance instantiated');
+
 messageHubInstance
   .producerInstance
   .consume('my_consumer_group', 'my_consumer_instance', {'auto.offset.reset': 'largest'})
   .then(function (response) {
+    console.log('Message Hub consumer instance instantiated');
     messageHubInstance.consumerInstance = response[0];
   })
   .fail(function (error) {
+    console.log('ERROR creating consumer instance');
     throw new Error(error);
   });
 
