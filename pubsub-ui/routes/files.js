@@ -2,12 +2,15 @@ var express = require('express');
 var router = express.Router();
 
 var messageHubInstance = require('../messagehub');
-var cosInstance = require('../objectStorage');
+var cosInstance;
+require('../objectStorage').then(cos => cosInstance = cos);
+var config = require('../config.js');
 
-var bucketName = 'mywebsite';
+var bucketName = config.COSBucketName;
 
 /* GET files listing. */
 router.get('/', function (req, res, next) {
+  console.log(cosInstance);
   cosInstance.listObjects({
     Bucket: bucketName
   }, (err, data) => err ? console.log(err) : res.send(data));
