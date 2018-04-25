@@ -2,8 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var messageHubInstance = require('../messagehub');
-var cosInstance;
-require('../objectStorage').then(cos => cosInstance = cos);
+var cosInstance = require('../objectStorage');
 var config = require('../config.js');
 
 var bucketName = config.COSBucketName;

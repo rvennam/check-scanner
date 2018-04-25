@@ -78,14 +78,24 @@ public class MessageHubConsoleSample {
 	public static void main(String args[]) {
 		try {
 			final String userDir = System.getProperty("user.dir");
-			final String messageHubCredentials = System.getenv("MESSAGEHUB_CREDENTIALS"); // JSON string with IBM
-																							// Message Hub credentials
-			final String objectStorageCredentials = System.getenv("OBJECTSTORAGE_CREDENTIALS"); // JSON string with IBM
-																								// Message Hub
-																								// credentials
+			final String messageHubCredentials = System.getenv("MESSAGEHUB_CREDENTIALS"); // JSON string with IBM Message Hub credentials
+			final String objectStorageCredentials = System.getenv("OBJECTSTORAGE_CREDENTIALS"); // JSON string with IBM Object Storage credentials
 			final Properties clientProperties = new Properties();
 			final Properties cosProperties = new Properties();
 			resourceDir = userDir + File.separator + "resources";
+			
+			try {
+				InputStream propsStream = new FileInputStream(resourceDir + File.separator + "cos.properties");
+				cosProperties.load(propsStream);
+				propsStream.close();
+			} catch (IOException e) {
+				logger.log(Level.ERROR, "Could not load properties from file");
+				logger.log(Level.ERROR, e.getMessage());
+				return;
+			}
+			String endpoint_url = cosProperties.getProperty("endpoint.url");
+			String location = cosProperties.getProperty("location");
+			bucketName = cosProperties.getProperty("bucket.name");
 
 			String bootstrapServers = null;
 			String adminRestURL = null;
@@ -96,9 +106,8 @@ public class MessageHubConsoleSample {
 			SDKGlobalConfiguration.IAM_ENDPOINT = "https://iam.bluemix.net/oidc/token";
 			String cos_api_key = null;
 			String service_instance_id = null;
-			String endpoint_url = "https://s3-api.us-geo.objectstorage.softlayer.net";
-			String location = "us";
 
+ 
 			if (messageHubCredentials == null || objectStorageCredentials == null) {
 				logger.log(Level.ERROR, "Credentials missing");
 				System.exit(-1);
@@ -113,15 +122,6 @@ public class MessageHubConsoleSample {
 			// create the COS client
 			cos = CosHelper.createClient(cos_api_key, service_instance_id, endpoint_url, location);
 
-			try {
-				InputStream propsStream = new FileInputStream(resourceDir + File.separator + "cos.properties");
-				cosProperties.load(propsStream);
-				propsStream.close();
-			} catch (IOException e) {
-				logger.log(Level.ERROR, "Could not load properties from file");
-				logger.log(Level.ERROR, e.getMessage());
-			}
-			bucketName = cosProperties.getProperty("bucket.name");
 
 			MessageHubCredentials credentials = mapper.readValue(messageHubCredentials, MessageHubCredentials.class);
 

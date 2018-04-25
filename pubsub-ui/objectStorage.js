@@ -1,5 +1,6 @@
-var AWS = require('ibm-cos-sdk');
+var COS_SDK = require('ibm-cos-sdk');
 var request = require('request');
+var config = require('./config.js');
 
 var cosCredentials, cos;
 
@@ -11,19 +12,14 @@ if(process.env.OBJECTSTORAGE_CREDENTIALS) {
   cosCredentials = require('./credentials.json').OBJECTSTORAGE_CREDENTIALS
  }
 
-module.exports = new Promise(function(resolve, reject){
-  request(cosCredentials.endpoints, function (error, response, body) {
-    if(error) reject(error);
-    var endpoint = JSON.parse(body)['service-endpoints']['cross-region']['us']['public']['us-geo'];
-    console.log('COS Endpoint: ' + endpoint)
-    var config =   {
-      'endpoint': endpoint,
-      'apiKeyId': cosCredentials.apikey,
-      'ibmAuthEndpoint': 'https://iam.ng.bluemix.net/oidc/token',
-      'serviceInstanceId': cosCredentials.resource_instance_id
-    };
-  
-    cos = new AWS.S3(config);
-    resolve(cos)
-  });
-});
+ var cos_config =   {
+  'endpoint': config.EndPointURL,
+  'apiKeyId': cosCredentials.apikey,
+  'ibmAuthEndpoint': 'https://iam.ng.bluemix.net/oidc/token',
+  'serviceInstanceId': cosCredentials.resource_instance_id
+};
+
+var cos = new COS_SDK.S3(cos_config);
+
+
+module.exports = cos;
