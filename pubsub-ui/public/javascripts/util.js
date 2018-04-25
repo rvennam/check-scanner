@@ -35,6 +35,9 @@ function displayFiles() {
 };
 
 $(document).ready(function () {
+    $('#uploadedFile').change(function(){
+        $('#fileLabel').text(this.files[0].name);
+    });
     $('#btnSubmit')
         .click(function (event) {
             //stop submit the form, we will post it manually.

@@ -49,14 +49,14 @@ public class WorkerRunnable implements Runnable {
 	private final String resultTopic;
 	private final AmazonS3 cos;
 
-	public WorkerRunnable(Properties kafkaProperties, String workTopic, String resultTopic, AmazonS3 cos) {
+	public WorkerRunnable(Properties producerProperties, Properties consumerProperties, String workTopic, String resultTopic, AmazonS3 cos) {
 		this.cos = cos;
 		this.resultTopic = resultTopic;
 
 		// Create a Kafka consumer with the provided client configuration
-		kafkaConsumer = new KafkaConsumer<String, String>(kafkaProperties);
+		kafkaConsumer = new KafkaConsumer<String, String>(consumerProperties);
 		// Create a Kafka producer with the provided client configuration
-		kafkaProducer = new KafkaProducer<String, String>(kafkaProperties);
+		kafkaProducer = new KafkaProducer<String, String>(producerProperties);
 
 		// Checking for topic existence before subscribing
 		List<PartitionInfo> partitions = kafkaConsumer.partitionsFor(workTopic);
@@ -121,15 +121,21 @@ public class WorkerRunnable implements Runnable {
 			// partitioner to choose one.
 
 		} catch (Exception e) {
-			System.out.println("Error getting \"" + fileName + "\" from COS");
+			System.out.println("Error getting \"" + fileName + "\" from Object Storage with BucketName " + MessageHubConsoleSample.bucketName);
 			System.out.println(e.getMessage());
+			return;
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
 		Message message = new Message();
 		message.setName(fileName);
 		message.setStatus("processed");
-		message.setWorkerID(System.getenv("MY_POD_NAME"));
+		if(System.getenv("MY_POD_NAME")!= null) {
+			message.setWorkerID(System.getenv("MY_POD_NAME"));
+		} else {
+			message.setWorkerID(Long.toString(Thread.currentThread().getId()));
+		}
+		
 		ProducerRecord<String, String> record;
 		try {
 			System.out.println("Producing result message in the topic: " + resultTopic);

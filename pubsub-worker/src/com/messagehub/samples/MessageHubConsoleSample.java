@@ -53,7 +53,8 @@ public class MessageHubConsoleSample {
 	private static Thread producerThread = null;
 	private static String resourceDir;
 
-	public static String bucketName = "mywebsite";
+	public static String bucketName;
+
 	private static AmazonS3 cos;
 
 	// add shutdown hooks (intercept CTRL-C etc.)
@@ -77,9 +78,14 @@ public class MessageHubConsoleSample {
 	public static void main(String args[]) {
 		try {
 			final String userDir = System.getProperty("user.dir");
-			final String messageHubCredentials = System.getenv("MESSAGEHUB_CREDENTIALS"); // JSON string with IBM Message Hub credentials
-			final String objectStorageCredentials = System.getenv("OBJECTSTORAGE_CREDENTIALS"); // JSON string with IBM Message Hub credentials
+			final String messageHubCredentials = System.getenv("MESSAGEHUB_CREDENTIALS"); // JSON string with IBM
+																							// Message Hub credentials
+			final String objectStorageCredentials = System.getenv("OBJECTSTORAGE_CREDENTIALS"); // JSON string with IBM
+																								// Message Hub
+																								// credentials
 			final Properties clientProperties = new Properties();
+			final Properties cosProperties = new Properties();
+			resourceDir = userDir + File.separator + "resources";
 
 			String bootstrapServers = null;
 			String adminRestURL = null;
@@ -98,25 +104,32 @@ public class MessageHubConsoleSample {
 				System.exit(-1);
 			}
 			ObjectMapper mapper = new ObjectMapper();
-			
+
 			ObjectStorageCredentials cos_credentials = mapper.readValue(objectStorageCredentials,
 					ObjectStorageCredentials.class);
 			cos_api_key = cos_credentials.getApikey();
 			service_instance_id = cos_credentials.getResourceInstanceId();
-			
+
 			// create the COS client
 			cos = CosHelper.createClient(cos_api_key, service_instance_id, endpoint_url, location);
-			
-			
+
+			try {
+				InputStream propsStream = new FileInputStream(resourceDir + File.separator + "cos.properties");
+				cosProperties.load(propsStream);
+				propsStream.close();
+			} catch (IOException e) {
+				logger.log(Level.ERROR, "Could not load properties from file");
+				logger.log(Level.ERROR, e.getMessage());
+			}
+			bucketName = cosProperties.getProperty("bucket.name");
+
 			MessageHubCredentials credentials = mapper.readValue(messageHubCredentials, MessageHubCredentials.class);
-			resourceDir = userDir + File.separator + "resources";
 
 			bootstrapServers = stringArrayToCSV(credentials.getKafkaBrokersSasl());
 			adminRestURL = credentials.getKafkaRestUrl();
 			apiKey = credentials.getApiKey();
 			user = credentials.getUser();
 			password = credentials.getPassword();
-
 
 			// inject bootstrapServers in configuration, for both consumer and producer
 			clientProperties.put("bootstrap.servers", bootstrapServers);
@@ -125,14 +138,14 @@ public class MessageHubConsoleSample {
 			logger.log(Level.INFO, "Admin REST Endpoint: " + adminRestURL);
 
 			createTopics(adminRestURL, apiKey);
-			
+
 			// create the Kafka client
-			Properties consumerProperties = getClientConfiguration(clientProperties, "kafka.properties", user,
-					password);
-			consumerRunnable = new WorkerRunnable(consumerProperties, WORK_TOPIC_NAME, RESULT_TOPIC_NAME, cos);
+			Properties consumerProperties = getClientConfiguration(clientProperties, "consumer.properties", user, password);
+            Properties producerProperties = getClientConfiguration(clientProperties, "producer.properties", user, password);
+
+			consumerRunnable = new WorkerRunnable(producerProperties, consumerProperties, WORK_TOPIC_NAME, RESULT_TOPIC_NAME, cos);
 			consumerThread = new Thread(consumerRunnable, "Consumer Thread");
 			consumerThread.start();
-
 
 			logger.log(Level.INFO, "MessageHubConsoleSample will run until interrupted.");
 		} catch (Exception e) {
@@ -161,7 +174,6 @@ public class MessageHubConsoleSample {
 			// may already exist
 		}
 
-		
 	}
 
 	/*

@@ -36,7 +36,11 @@ router.post('/', function (req, res) {
         });
         console.log('Message sent to Message Hub');
       }
-    );
+    )
+    .catch((error) => {
+      console.log(`Did you create a bucket with name "${bucketName}"?`);
+      console.log(error);
+    });
   
   res.json({name: req.files.uploadedFile.name, status: 'awaiting'});
   return ;
