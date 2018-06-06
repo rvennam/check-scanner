@@ -36,14 +36,14 @@ idt deploy
 idt deploy --target container
 ```
 2. Install the [IBM Cloud CLI](https://console.ng.bluemix.net/docs/cli/index.html)
-3. Install the plugin with: `bx plugin install dev -r bluemix`
+3. Install the plugin with: `ibmcloud plugin install dev -r bluemix`
 
 
 #### IBM Cloud DevOps setup (optional)
 
 [![Create Toolchain](https://console.ng.bluemix.net/devops/graphics/create_toolchain_button.png)](https://console.ng.bluemix.net/devops/setup/deploy/)
 
-[IBM Cloud DevOps](https://www.ibm.com/cloud-computing/bluemix/devops) services provides toolchains as a set of tool integrations that support development, deployment, and operations tasks inside Bluemix. The "Create Toolchain" button creates a DevOps toolchain and acts as a single-click deploy to IBM Cloud including provisioning all required services. 
+[IBM Cloud DevOps](https://www.ibm.com/cloud-computing/bluemix/devops) services provides toolchains as a set of tool integrations that support development, deployment, and operations tasks inside Bluemix. The "Create Toolchain" button creates a DevOps toolchain and acts as a single-click deploy to IBM Cloud including provisioning all required services.
 
 ***Note** you must publish your project to [Github](https://github.com/) for this to work.
 
@@ -63,8 +63,8 @@ Service credentials are taken from the VCAP_SERVICES environment variable if run
 The IBM Cloud development plugin makes it easy to compile and run your application if you do not have all of the tools installed on your computer yet. Your application will be compiled with Docker containers. To compile and run your app, run:
 
 ```bash
-bx dev build
-bx dev run
+ibmcloud dev build
+ibmcloud dev run
 ```
 
 
@@ -76,7 +76,7 @@ bx dev run
 
 
 ##### Session Store
-You may see this warning when running `bx dev run`:
+You may see this warning when running `ibmcloud dev run`:
 ```
 Warning: connect.session() MemoryStore is not
 designed for a production environment, as it will leak
@@ -90,7 +90,6 @@ When deploying to production, it is best practice to configure sessions to be st
 #### Using IBM Cloud development CLI
 To build and debug your app, run:
 ```bash
-bx dev build --debug
-bx dev debug
+ibmcloud dev build --debug
+ibmcloud dev debug
 ```
-
