@@ -1,7 +1,9 @@
 # Asynchronous data processing using object storage and pub/sub messaging
 
-In this tutorial, you will learn how to use an Apache Kafka based messaging service to orchestrate long running workloads to applications running in a Kubernetes cluster. To simulate this use case, you will first create a UI application which will be used to upload files to object storage and generate messages indicating work to be done. Next, you will create a separate worker application which will asynchronously process the user uploaded files when it receives messages.
+This sample application uses an Apache Kafka based messaging service to orchestrate long running workloads to applications running in a Kubernetes cluster. This pattern is used to decouple your application allowing greater control over scaling and performance. Event Streams can be used to queue up the work to be done without impacting the producer applications, making it an ideal system for long-running tasks.
 
-[View Tutorial](https://console.bluemix.net/docs/tutorials/pub-sub-object-storage.html)
+Refer to [this tutorial](https://cloud.ibm.com/docs/tutorials?topic=solution-tutorials-pub-sub-object-storage) for instructions.
 
-![](Architecture.png)
+## License
+
+See License.txt for license information.
