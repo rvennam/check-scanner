@@ -85,57 +85,67 @@ public class EventStreamsConsole {
 		});
 	}
 
-    static final Properties getCommonConfigs(String boostrapServers, String apikey) {
-        Properties configs = new Properties();
-        configs.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, boostrapServers);
-        configs.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL");
-        configs.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
-        configs.put(SaslConfigs.SASL_JAAS_CONFIG, "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"token\" password=\"" + apikey + "\";");
-        configs.put(SslConfigs.SSL_PROTOCOL_CONFIG, "TLSv1.2");
-        configs.put(SslConfigs.SSL_ENABLED_PROTOCOLS_CONFIG, "TLSv1.2");
-        configs.put(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG, "HTTPS");
-        return configs;
-    }
+	static final Properties getCommonConfigs(String boostrapServers, String apikey) {
+		Properties configs = new Properties();
+		configs.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, boostrapServers);
+		configs.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL");
+		configs.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
+		configs.put(SaslConfigs.SASL_JAAS_CONFIG,
+				"org.apache.kafka.common.security.plain.PlainLoginModule required username=\"token\" password=\""
+						+ apikey + "\";");
+		configs.put(SslConfigs.SSL_PROTOCOL_CONFIG, "TLSv1.2");
+		configs.put(SslConfigs.SSL_ENABLED_PROTOCOLS_CONFIG, "TLSv1.2");
+		configs.put(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG, "HTTPS");
+		return configs;
+	}
 
-    static final Properties getAdminConfigs(String bootstrapServers, String apikey) {
-        Properties configs = new Properties();
-        configs.put(ConsumerConfig.CLIENT_ID_CONFIG, "pubsub-worker");
-        configs.put(AdminClientConfig.CLIENT_DNS_LOOKUP_CONFIG, "use_all_dns_ips");
-        configs.putAll(getCommonConfigs(bootstrapServers, apikey));
-        return configs;
-    }
-    
-    static final Properties getProducerConfigs(String bootstrapServers, String apikey) {
-        Properties configs = new Properties();
-        configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
-        configs.put(ProducerConfig.CLIENT_ID_CONFIG, "pubsub-producer");
-        configs.put(ProducerConfig.ACKS_CONFIG, "-1");
-        configs.put(ProducerConfig.CLIENT_DNS_LOOKUP_CONFIG,"use_all_dns_ips");
-        configs.putAll(getCommonConfigs(bootstrapServers, apikey));
-        return configs;
-    }
-    
-    static final Properties getConsumerConfigs(String bootstrapServers, String apikey) {
-        Properties configs = new Properties();
-        configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
-        configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
-        configs.put(ConsumerConfig.CLIENT_ID_CONFIG, "pubsub-consumer");
-        configs.put(ConsumerConfig.GROUP_ID_CONFIG, "pubsub-group");
-        configs.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-        configs.put(ConsumerConfig.CLIENT_DNS_LOOKUP_CONFIG,"use_all_dns_ips");
-        configs.putAll(getCommonConfigs(bootstrapServers, apikey));
-        return configs;
-    }
-    
+	static final Properties getAdminConfigs(String bootstrapServers, String apikey) {
+		Properties configs = new Properties();
+		configs.put(ConsumerConfig.CLIENT_ID_CONFIG, "pubsub-worker");
+		configs.put(AdminClientConfig.CLIENT_DNS_LOOKUP_CONFIG, "use_all_dns_ips");
+		configs.putAll(getCommonConfigs(bootstrapServers, apikey));
+		return configs;
+	}
+
+	static final Properties getProducerConfigs(String bootstrapServers, String apikey) {
+		Properties configs = new Properties();
+		configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
+				"org.apache.kafka.common.serialization.StringSerializer");
+		configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
+				"org.apache.kafka.common.serialization.StringSerializer");
+		configs.put(ProducerConfig.CLIENT_ID_CONFIG, "pubsub-producer");
+		configs.put(ProducerConfig.ACKS_CONFIG, "-1");
+		configs.put(ProducerConfig.CLIENT_DNS_LOOKUP_CONFIG, "use_all_dns_ips");
+		configs.putAll(getCommonConfigs(bootstrapServers, apikey));
+		return configs;
+	}
+
+	static final Properties getConsumerConfigs(String bootstrapServers, String apikey) {
+		Properties configs = new Properties();
+		configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
+				"org.apache.kafka.common.serialization.StringDeserializer");
+		configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
+				"org.apache.kafka.common.serialization.StringDeserializer");
+		configs.put(ConsumerConfig.CLIENT_ID_CONFIG, "pubsub-consumer");
+		configs.put(ConsumerConfig.GROUP_ID_CONFIG, "pubsub-group");
+		configs.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+		configs.put(ConsumerConfig.CLIENT_DNS_LOOKUP_CONFIG, "use_all_dns_ips");
+		configs.putAll(getCommonConfigs(bootstrapServers, apikey));
+		return configs;
+	}
+
 	public static void main(String args[]) {
 		try {
 			final String userDir = System.getProperty("user.dir");
-			final String eventStreamsCredentials = System.getenv("EVENTSTREAMS_CREDENTIALS"); // JSON string with IBM Event Streams credentials
-			final String objectStorageCredentials = System.getenv("OBJECTSTORAGE_CREDENTIALS"); // JSON string with IBM Object Storage credentials
+			final String eventStreamsCredentials = System.getenv("EVENTSTREAMS_CREDENTIALS"); // JSON string with IBM
+																								// Event Streams
+																								// credentials
+			final String objectStorageCredentials = System.getenv("OBJECTSTORAGE_CREDENTIALS"); // JSON string with IBM
+																								// Object Storage
+																								// credentials
 			final Properties cosProperties = new Properties();
 			resourceDir = userDir + File.separator + "resources";
-			
+
 			try {
 				InputStream propsStream = new FileInputStream(resourceDir + File.separator + "cos.properties");
 				cosProperties.load(propsStream);
@@ -153,7 +163,6 @@ public class EventStreamsConsole {
 			String cos_api_key = null;
 			String service_instance_id = null;
 
- 
 			if (eventStreamsCredentials == null || objectStorageCredentials == null) {
 				logger.log(Level.ERROR, "Credentials missing");
 				System.exit(-1);
@@ -168,14 +177,16 @@ public class EventStreamsConsole {
 			// create the COS client
 			cos = CosHelper.createClient(cos_api_key, service_instance_id, endpoint_url, location);
 
-			EventStreamsCredentials credentials = mapper.readValue(eventStreamsCredentials, EventStreamsCredentials.class);
-			AdminClient admin = AdminClient.create(getAdminConfigs(credentials.getBootstrapServers(), credentials.getApiKey()));
+			EventStreamsCredentials credentials = mapper.readValue(eventStreamsCredentials,
+					EventStreamsCredentials.class);
+			AdminClient admin = AdminClient
+					.create(getAdminConfigs(credentials.getBootstrapServers(), credentials.getApiKey()));
 			logger.log(Level.INFO, "Kafka Endpoints: " + credentials.getBootstrapServers());
-			
+
 			System.out.println(getAdminConfigs(credentials.getBootstrapServers(), credentials.getApiKey()));
-			
+
 			try {
-				NewTopic workTopic = new NewTopic(WORK_TOPIC_NAME, 1, (short)3);	
+				NewTopic workTopic = new NewTopic(WORK_TOPIC_NAME, 1, (short) 3);
 				CreateTopicsResult ctr = admin.createTopics(Collections.singleton(workTopic));
 				ctr.all().get(10, TimeUnit.SECONDS);
 			} catch (ExecutionException tee) {
@@ -183,18 +194,21 @@ public class EventStreamsConsole {
 			}
 
 			try {
-				NewTopic resultTopic = new NewTopic(RESULT_TOPIC_NAME, 1, (short)3);
+				NewTopic resultTopic = new NewTopic(RESULT_TOPIC_NAME, 1, (short) 3);
 				CreateTopicsResult ctr = admin.createTopics(Collections.singleton(resultTopic));
 				ctr.all().get(10, TimeUnit.SECONDS);
 			} catch (ExecutionException tee) {
 				logger.log(Level.INFO, RESULT_TOPIC_NAME + " already exists");
 			}
-			
-            Properties producerProperties = getProducerConfigs(credentials.getBootstrapServers(), credentials.getApiKey());
-            Properties consumerProperties = getConsumerConfigs(credentials.getBootstrapServers(), credentials.getApiKey());
-            consumerRunnable = new WorkerRunnable(producerProperties, consumerProperties, WORK_TOPIC_NAME, RESULT_TOPIC_NAME, cos);
-            consumerThread = new Thread(consumerRunnable, "Consumer Thread");
-            consumerThread.start();
+
+			Properties producerProperties = getProducerConfigs(credentials.getBootstrapServers(),
+					credentials.getApiKey());
+			Properties consumerProperties = getConsumerConfigs(credentials.getBootstrapServers(),
+					credentials.getApiKey());
+			consumerRunnable = new WorkerRunnable(producerProperties, consumerProperties, WORK_TOPIC_NAME,
+					RESULT_TOPIC_NAME, cos);
+			consumerThread = new Thread(consumerRunnable, "Consumer Thread");
+			consumerThread.start();
 
 			logger.log(Level.INFO, "EventStreamsConsole will run until interrupted.");
 		} catch (Exception e) {

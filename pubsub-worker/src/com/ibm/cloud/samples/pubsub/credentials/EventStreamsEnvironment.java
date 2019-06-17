@@ -22,49 +22,49 @@ package com.ibm.cloud.samples.pubsub.credentials;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EventStreamsEnvironment {
 
-    private String name, label, plan;
-    private EventStreamsCredentials credentials;
-    
-    @JsonProperty
-    public String getName() {
-        return name;
-    }
+	private String name, label, plan;
+	private EventStreamsCredentials credentials;
 
-    @JsonProperty
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    @JsonProperty
-    public String getLabel() {
-        return label;
-    }
+	@JsonProperty
+	public String getName() {
+		return name;
+	}
 
-    @JsonProperty
-    public void setLabel(String label) {
-        this.label = label;
-    }
-    
-    @JsonProperty
-    public String getPlan() {
-        return plan;
-    }
+	@JsonProperty
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @JsonProperty
-    public void setPlan(String plan) {
-        this.plan = plan;
-    }
-    
-    @JsonProperty
-    public EventStreamsCredentials getCredentials() {
-        return credentials;
-    }
+	@JsonProperty
+	public String getLabel() {
+		return label;
+	}
 
-    @JsonProperty
-    public void setCredentials(EventStreamsCredentials credentials) {
-        this.credentials = credentials;
-    }
+	@JsonProperty
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	@JsonProperty
+	public String getPlan() {
+		return plan;
+	}
+
+	@JsonProperty
+	public void setPlan(String plan) {
+		this.plan = plan;
+	}
+
+	@JsonProperty
+	public EventStreamsCredentials getCredentials() {
+		return credentials;
+	}
+
+	@JsonProperty
+	public void setCredentials(EventStreamsCredentials credentials) {
+		this.credentials = credentials;
+	}
 }

@@ -22,63 +22,63 @@ package com.ibm.cloud.samples.pubsub.credentials;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EventStreamsCredentials {
 
-    private String apiKey, kafkaRestUrl, user, password;
-    private String[] kafkaBrokersSasl;
+	private String apiKey, kafkaRestUrl, user, password;
+	private String[] kafkaBrokersSasl;
 
-    @JsonProperty("api_key")
-    public String getApiKey() {
-        return apiKey;
-    }
+	@JsonProperty("api_key")
+	public String getApiKey() {
+		return apiKey;
+	}
 
-    @JsonProperty("api_key")
-    public void setLabel(String apiKey) {
-        this.apiKey = apiKey;
-    }
-    
-    @JsonProperty("kafka_http_url")
-    public String getKafkaRestUrl() {
-        return kafkaRestUrl;
-    }
+	@JsonProperty("api_key")
+	public void setLabel(String apiKey) {
+		this.apiKey = apiKey;
+	}
 
-    @JsonProperty("kafka_http_url")
-    public void setKafkaRestUrl(String kafkaRestUrl) {
-        this.kafkaRestUrl = kafkaRestUrl;
-    }
-    
-    @JsonProperty
-    public String getUser() {
-        return user;
-    }
+	@JsonProperty("kafka_http_url")
+	public String getKafkaRestUrl() {
+		return kafkaRestUrl;
+	}
 
-    @JsonProperty
-    public void setUser(String user) {
-        this.user = user;
-    }
-    
-    @JsonProperty
-    public String getPassword() {
-        return password;
-    }
+	@JsonProperty("kafka_http_url")
+	public void setKafkaRestUrl(String kafkaRestUrl) {
+		this.kafkaRestUrl = kafkaRestUrl;
+	}
 
-    @JsonProperty
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
-    @JsonProperty("kafka_brokers_sasl")
-    public String[] getKafkaBrokersSasl() {
-        return kafkaBrokersSasl;
-    }
+	@JsonProperty
+	public String getUser() {
+		return user;
+	}
 
-    @JsonProperty("kafka_brokers_sasl")
-    public void setKafkaBrokersSasl(String[] kafkaBrokersSasl) {
-        this.kafkaBrokersSasl = kafkaBrokersSasl;
-    }
-    
-    public String getBootstrapServers() {
-    	return String.join(",", getKafkaBrokersSasl());
-    }
+	@JsonProperty
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	@JsonProperty
+	public String getPassword() {
+		return password;
+	}
+
+	@JsonProperty
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@JsonProperty("kafka_brokers_sasl")
+	public String[] getKafkaBrokersSasl() {
+		return kafkaBrokersSasl;
+	}
+
+	@JsonProperty("kafka_brokers_sasl")
+	public void setKafkaBrokersSasl(String[] kafkaBrokersSasl) {
+		this.kafkaBrokersSasl = kafkaBrokersSasl;
+	}
+
+	public String getBootstrapServers() {
+		return String.join(",", getKafkaBrokersSasl());
+	}
 }
