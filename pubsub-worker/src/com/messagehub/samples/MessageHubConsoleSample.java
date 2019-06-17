@@ -24,8 +24,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.Collections;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
+import org.apache.kafka.clients.CommonClientConfigs;
+import org.apache.kafka.clients.admin.AdminClient;
+import org.apache.kafka.clients.admin.AdminClientConfig;
+import org.apache.kafka.clients.admin.CreateTopicsResult;
+import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.config.SaslConfigs;
+import org.apache.kafka.common.config.SslConfigs;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -34,7 +46,6 @@ import com.ibm.cloud.objectstorage.SDKGlobalConfiguration;
 import com.ibm.cloud.objectstorage.services.s3.AmazonS3;
 import com.messagehub.samples.bluemix.MessageHubCredentials;
 import com.messagehub.samples.bluemix.ObjectStorageCredentials;
-import com.messagehub.samples.rest.RESTAdmin;
 
 /**
  * Console-based sample interacting with Message Hub, authenticating with
@@ -75,12 +86,54 @@ public class MessageHubConsoleSample {
 		});
 	}
 
+    static final Properties getCommonConfigs(String boostrapServers, String apikey) {
+        Properties configs = new Properties();
+        configs.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, boostrapServers);
+        configs.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL");
+        configs.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
+        configs.put(SaslConfigs.SASL_JAAS_CONFIG, "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"token\" password=\"" + apikey + "\";");
+        configs.put(SslConfigs.SSL_PROTOCOL_CONFIG, "TLSv1.2");
+        configs.put(SslConfigs.SSL_ENABLED_PROTOCOLS_CONFIG, "TLSv1.2");
+        configs.put(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG, "HTTPS");
+        return configs;
+    }
+
+    static final Properties getAdminConfigs(String bootstrapServers, String apikey) {
+        Properties configs = new Properties();
+        configs.put(ConsumerConfig.CLIENT_ID_CONFIG, "pubsub-worker");
+        configs.put(AdminClientConfig.CLIENT_DNS_LOOKUP_CONFIG, "use_all_dns_ips");
+        configs.putAll(getCommonConfigs(bootstrapServers, apikey));
+        return configs;
+    }
+    
+    static final Properties getProducerConfigs(String bootstrapServers, String apikey) {
+        Properties configs = new Properties();
+        configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+        configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+        configs.put(ProducerConfig.CLIENT_ID_CONFIG, "pubsub-producer");
+        configs.put(ProducerConfig.ACKS_CONFIG, "-1");
+        configs.put(ProducerConfig.CLIENT_DNS_LOOKUP_CONFIG,"use_all_dns_ips");
+        configs.putAll(getCommonConfigs(bootstrapServers, apikey));
+        return configs;
+    }
+    
+    static final Properties getConsumerConfigs(String bootstrapServers, String apikey) {
+        Properties configs = new Properties();
+        configs.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
+        configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
+        configs.put(ConsumerConfig.CLIENT_ID_CONFIG, "pubsub-consumer");
+        configs.put(ConsumerConfig.GROUP_ID_CONFIG, "pubsub-group");
+        configs.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+        configs.put(ConsumerConfig.CLIENT_DNS_LOOKUP_CONFIG,"use_all_dns_ips");
+        configs.putAll(getCommonConfigs(bootstrapServers, apikey));
+        return configs;
+    }
+    
 	public static void main(String args[]) {
 		try {
 			final String userDir = System.getProperty("user.dir");
 			final String messageHubCredentials = System.getenv("MESSAGEHUB_CREDENTIALS"); // JSON string with IBM Message Hub credentials
 			final String objectStorageCredentials = System.getenv("OBJECTSTORAGE_CREDENTIALS"); // JSON string with IBM Object Storage credentials
-			final Properties clientProperties = new Properties();
 			final Properties cosProperties = new Properties();
 			resourceDir = userDir + File.separator + "resources";
 			
@@ -97,13 +150,7 @@ public class MessageHubConsoleSample {
 			String location = cosProperties.getProperty("location");
 			bucketName = cosProperties.getProperty("bucket.name");
 
-			String bootstrapServers = null;
-			String adminRestURL = null;
-			String apiKey = null;
-			String user = null;
-			String password = null;
-
-			SDKGlobalConfiguration.IAM_ENDPOINT = "https://iam.bluemix.net/oidc/token";
+			SDKGlobalConfiguration.IAM_ENDPOINT = "https://iam.cloud.ibm.com/oidc/token";
 			String cos_api_key = null;
 			String service_instance_id = null;
 
@@ -122,58 +169,39 @@ public class MessageHubConsoleSample {
 			// create the COS client
 			cos = CosHelper.createClient(cos_api_key, service_instance_id, endpoint_url, location);
 
-
 			MessageHubCredentials credentials = mapper.readValue(messageHubCredentials, MessageHubCredentials.class);
+			AdminClient admin = AdminClient.create(getAdminConfigs(credentials.getBootstrapServers(), credentials.getApiKey()));
+			logger.log(Level.INFO, "Kafka Endpoints: " + credentials.getBootstrapServers());
+			
+			System.out.println(getAdminConfigs(credentials.getBootstrapServers(), credentials.getApiKey()));
+			
+			try {
+				NewTopic workTopic = new NewTopic(WORK_TOPIC_NAME, 1, (short)3);	
+				CreateTopicsResult ctr = admin.createTopics(Collections.singleton(workTopic));
+				ctr.all().get(10, TimeUnit.SECONDS);
+			} catch (ExecutionException tee) {
+				logger.log(Level.INFO, WORK_TOPIC_NAME + " already exists");
+			}
 
-			bootstrapServers = stringArrayToCSV(credentials.getKafkaBrokersSasl());
-			adminRestURL = credentials.getKafkaRestUrl();
-			apiKey = credentials.getApiKey();
-			user = credentials.getUser();
-			password = credentials.getPassword();
-
-			// inject bootstrapServers in configuration, for both consumer and producer
-			clientProperties.put("bootstrap.servers", bootstrapServers);
-
-			logger.log(Level.INFO, "Kafka Endpoints: " + bootstrapServers);
-			logger.log(Level.INFO, "Admin REST Endpoint: " + adminRestURL);
-
-			createTopics(adminRestURL, apiKey);
-
-			// create the Kafka client
-			Properties consumerProperties = getClientConfiguration(clientProperties, "consumer.properties", user, password);
-            Properties producerProperties = getClientConfiguration(clientProperties, "producer.properties", user, password);
-
-			consumerRunnable = new WorkerRunnable(producerProperties, consumerProperties, WORK_TOPIC_NAME, RESULT_TOPIC_NAME, cos);
-			consumerThread = new Thread(consumerRunnable, "Consumer Thread");
-			consumerThread.start();
+			try {
+				NewTopic resultTopic = new NewTopic(RESULT_TOPIC_NAME, 1, (short)3);
+				CreateTopicsResult ctr = admin.createTopics(Collections.singleton(resultTopic));
+				ctr.all().get(10, TimeUnit.SECONDS);
+			} catch (ExecutionException tee) {
+				logger.log(Level.INFO, RESULT_TOPIC_NAME + " already exists");
+			}
+			
+            Properties producerProperties = getProducerConfigs(credentials.getBootstrapServers(), credentials.getApiKey());
+            Properties consumerProperties = getConsumerConfigs(credentials.getBootstrapServers(), credentials.getApiKey());
+            consumerRunnable = new WorkerRunnable(producerProperties, consumerProperties, WORK_TOPIC_NAME, RESULT_TOPIC_NAME, cos);
+            consumerThread = new Thread(consumerRunnable, "Consumer Thread");
+            consumerThread.start();
 
 			logger.log(Level.INFO, "MessageHubConsoleSample will run until interrupted.");
 		} catch (Exception e) {
 			logger.log(Level.ERROR, "Exception occurred, application will terminate", e);
 			System.exit(-1);
 		}
-	}
-
-	private static void createTopics(String adminRestURL, String apiKey) {
-		// Using Message Hub Admin REST API to create and list topics
-		// If the topic already exists, creation will be a no-op
-		try {
-			logger.log(Level.INFO, "Creating the topic " + WORK_TOPIC_NAME);
-			String restResponse = RESTAdmin.createTopic(adminRestURL, apiKey, WORK_TOPIC_NAME);
-			logger.log(Level.INFO, "Admin REST response :" + restResponse);
-
-			logger.log(Level.INFO, "Creating the topic " + RESULT_TOPIC_NAME);
-			restResponse = RESTAdmin.createTopic(adminRestURL, apiKey, RESULT_TOPIC_NAME);
-			logger.log(Level.INFO, "Admin REST response :" + restResponse);
-
-			String topics = RESTAdmin.listTopics(adminRestURL, apiKey);
-			logger.log(Level.INFO, "Admin REST Listing Topics: " + topics);
-		} catch (Exception e) {
-			logger.log(Level.ERROR, "Error occurred accessing the Admin REST API " + e, e);
-			// The application will carry on regardless of Admin REST errors, as the topic
-			// may already exist
-		}
-
 	}
 
 	/*
@@ -186,19 +214,6 @@ public class MessageHubConsoleSample {
 			producerThread.interrupt();
 		if (consumerThread != null)
 			consumerThread.interrupt();
-	}
-
-	/*
-	 * Return a CSV-String from a String array
-	 */
-	private static String stringArrayToCSV(String[] sArray) {
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < sArray.length; i++) {
-			sb.append(sArray[i]);
-			if (i < sArray.length - 1)
-				sb.append(",");
-		}
-		return sb.toString();
 	}
 
 	/*

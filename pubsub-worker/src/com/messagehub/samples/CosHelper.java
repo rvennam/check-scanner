@@ -1,24 +1,21 @@
 package com.messagehub.samples;
 
-import java.sql.Timestamp;
 import java.util.List;
-
 
 // version 1.x of the library uses 'com.amazonaws' for namespacing
 
 import com.ibm.cloud.objectstorage.ClientConfiguration;
-import com.ibm.cloud.objectstorage.SDKGlobalConfiguration;
 import com.ibm.cloud.objectstorage.auth.AWSCredentials;
 import com.ibm.cloud.objectstorage.auth.AWSStaticCredentialsProvider;
 import com.ibm.cloud.objectstorage.auth.BasicAWSCredentials;
 import com.ibm.cloud.objectstorage.client.builder.AwsClientBuilder.EndpointConfiguration;
+import com.ibm.cloud.objectstorage.oauth.BasicIBMOAuthCredentials;
 import com.ibm.cloud.objectstorage.services.s3.AmazonS3;
 import com.ibm.cloud.objectstorage.services.s3.AmazonS3ClientBuilder;
 import com.ibm.cloud.objectstorage.services.s3.model.Bucket;
 import com.ibm.cloud.objectstorage.services.s3.model.ListObjectsRequest;
 import com.ibm.cloud.objectstorage.services.s3.model.ObjectListing;
 import com.ibm.cloud.objectstorage.services.s3.model.S3ObjectSummary;
-import com.ibm.cloud.objectstorage.oauth.BasicIBMOAuthCredentials;
 
 public class CosHelper
 {
@@ -39,7 +36,7 @@ public class CosHelper
     public static AmazonS3 createClient(String api_key, String service_instance_id, String endpoint_url, String location)
     {
         AWSCredentials credentials;
-        if (endpoint_url.contains("objectstorage.softlayer.net")) {
+        if (endpoint_url.contains("cloud-object-storage.appdomain.cloud")) {
             credentials = new BasicIBMOAuthCredentials(api_key, service_instance_id);
         } else {
             String access_key = api_key;

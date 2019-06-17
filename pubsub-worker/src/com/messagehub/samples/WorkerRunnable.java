@@ -19,17 +19,16 @@
  */
 package com.messagehub.samples;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-import java.util.concurrent.Future;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.KafkaException;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.errors.WakeupException;
@@ -80,7 +79,7 @@ public class WorkerRunnable implements Runnable {
 				try {
 					// Poll on the Kafka consumer, waiting up to 3 secs if
 					// there's nothing to consume.
-					ConsumerRecords<String, String> records = kafkaConsumer.poll(3000);
+					ConsumerRecords<String, String> records = kafkaConsumer.poll(Duration.ofMillis(3000));
 
 					if (records.isEmpty()) {
 						logger.log(Level.INFO, "No messages consumed.");
@@ -141,9 +140,8 @@ public class WorkerRunnable implements Runnable {
 			System.out.println("Producing result message in the topic: " + resultTopic);
 			System.out.println(mapper.writeValueAsString(message));
 			record = new ProducerRecord<String, String>(resultTopic, mapper.writeValueAsString(message));
-			Future<RecordMetadata> future = kafkaProducer.send(record);
+			kafkaProducer.send(record);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

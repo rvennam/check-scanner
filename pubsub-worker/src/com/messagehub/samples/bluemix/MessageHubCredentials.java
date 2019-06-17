@@ -38,12 +38,12 @@ public class MessageHubCredentials {
         this.apiKey = apiKey;
     }
     
-    @JsonProperty("kafka_rest_url")
+    @JsonProperty("kafka_http_url")
     public String getKafkaRestUrl() {
         return kafkaRestUrl;
     }
 
-    @JsonProperty("kafka_rest_url")
+    @JsonProperty("kafka_http_url")
     public void setKafkaRestUrl(String kafkaRestUrl) {
         this.kafkaRestUrl = kafkaRestUrl;
     }
@@ -76,5 +76,9 @@ public class MessageHubCredentials {
     @JsonProperty("kafka_brokers_sasl")
     public void setKafkaBrokersSasl(String[] kafkaBrokersSasl) {
         this.kafkaBrokersSasl = kafkaBrokersSasl;
+    }
+    
+    public String getBootstrapServers() {
+    	return String.join(",", getKafkaBrokersSasl());
     }
 }
