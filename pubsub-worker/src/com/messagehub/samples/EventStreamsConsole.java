@@ -44,7 +44,7 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.cloud.objectstorage.SDKGlobalConfiguration;
 import com.ibm.cloud.objectstorage.services.s3.AmazonS3;
-import com.messagehub.samples.bluemix.MessageHubCredentials;
+import com.messagehub.samples.bluemix.EventStreamsCredentials;
 import com.messagehub.samples.bluemix.ObjectStorageCredentials;
 
 /**
@@ -53,11 +53,11 @@ import com.messagehub.samples.bluemix.ObjectStorageCredentials;
  *
  * @author IBM
  */
-public class MessageHubConsoleSample {
+public class EventStreamsConsole {
 
 	private static final String WORK_TOPIC_NAME = "work-topic";
 	private static final String RESULT_TOPIC_NAME = "result-topic";
-	private static final Logger logger = Logger.getLogger(MessageHubConsoleSample.class);
+	private static final Logger logger = Logger.getLogger(EventStreamsConsole.class);
 
 	private static Thread consumerThread = null;
 	private static WorkerRunnable consumerRunnable = null;
@@ -132,7 +132,7 @@ public class MessageHubConsoleSample {
 	public static void main(String args[]) {
 		try {
 			final String userDir = System.getProperty("user.dir");
-			final String messageHubCredentials = System.getenv("MESSAGEHUB_CREDENTIALS"); // JSON string with IBM Message Hub credentials
+			final String messageHubCredentials = System.getenv("EVENTSTREAMS_CREDENTIALS"); // JSON string with IBM Event Streams credentials
 			final String objectStorageCredentials = System.getenv("OBJECTSTORAGE_CREDENTIALS"); // JSON string with IBM Object Storage credentials
 			final Properties cosProperties = new Properties();
 			resourceDir = userDir + File.separator + "resources";
@@ -169,7 +169,7 @@ public class MessageHubConsoleSample {
 			// create the COS client
 			cos = CosHelper.createClient(cos_api_key, service_instance_id, endpoint_url, location);
 
-			MessageHubCredentials credentials = mapper.readValue(messageHubCredentials, MessageHubCredentials.class);
+			EventStreamsCredentials credentials = mapper.readValue(messageHubCredentials, EventStreamsCredentials.class);
 			AdminClient admin = AdminClient.create(getAdminConfigs(credentials.getBootstrapServers(), credentials.getApiKey()));
 			logger.log(Level.INFO, "Kafka Endpoints: " + credentials.getBootstrapServers());
 			

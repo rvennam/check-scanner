@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class MessageHubCredentials {
+public class EventStreamsCredentials {
 
     private String apiKey, kafkaRestUrl, user, password;
     private String[] kafkaBrokersSasl;

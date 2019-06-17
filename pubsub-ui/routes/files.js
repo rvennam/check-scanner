@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var messageHubInstance = require('../messagehub');
+var eventStreamsInstance = require('../messagehub');
 var cosInstance = require('../objectStorage');
 var config = require('../config.js');
 
@@ -28,7 +28,7 @@ router.post('/', function (req, res) {
     .promise()
     .then(() => {
       console.log(req.files.uploadedFile.name + ' uploaded to Object Storage');
-      messageHubInstance.onFileUploaded(req.files.uploadedFile.name);      
+      eventStreamsInstance.onFileUploaded(req.files.uploadedFile.name);      
     })
     .catch((error) => {
       console.log(`Did you create a bucket with name "${bucketName}"?`);

@@ -113,14 +113,14 @@ public class WorkerRunnable implements Runnable {
 		System.out.println("processMessage: " + fileName);
 		try {
 			System.out.println("Getting Object from S3");
-			System.out.println(cos.getObject(MessageHubConsoleSample.bucketName, fileName).toString());
+			System.out.println(cos.getObject(EventStreamsConsole.bucketName, fileName).toString());
 			System.out.println("Simulating processing...");
 			Thread.sleep(3000);
 			// If a partition is not specified, the client will use the default
 			// partitioner to choose one.
 
 		} catch (Exception e) {
-			System.out.println("Error getting \"" + fileName + "\" from Object Storage with BucketName " + MessageHubConsoleSample.bucketName);
+			System.out.println("Error getting \"" + fileName + "\" from Object Storage with BucketName " + EventStreamsConsole.bucketName);
 			System.out.println(e.getMessage());
 			return;
 		}

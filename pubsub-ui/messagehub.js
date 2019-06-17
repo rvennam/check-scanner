@@ -1,23 +1,23 @@
 var Kafka = require('node-rdkafka');
 
-var messageHubCredentials;
+var eventStreamsCredentials;
 
-if (process.env.MESSAGEHUB_CREDENTIALS) {
-  console.log('Found MessageHub credentials in MESSAGEHUB_CREDENTIALS env var')
-  messageHubCredentials = JSON.parse(process.env.MESSAGEHUB_CREDENTIALS);
+if (process.env.EVENTSTREAMS_CREDENTIALS) {
+  console.log('Found Event Streams credentials in EVENTSTREAMS_CREDENTIALS env var')
+  eventStreamsCredentials = JSON.parse(process.env.EVENTSTREAMS_CREDENTIALS);
 } else {
-  console.log('Missing env var MESSAGEHUB_CREDENTIALS, using credentials.json');
-  messageHubCredentials = require('./credentials.json').MESSAGEHUB_CREDENTIALS
+  console.log('Missing env var EVENTSTREAMS_CREDENTIALS, using credentials.json');
+  eventStreamsCredentials = require('./credentials.json').EVENTSTREAMS_CREDENTIALS
 }
 
 // Config options common to all clients
 var driver_options = {
-  'metadata.broker.list': messageHubCredentials.kafka_brokers_sasl.join(','),
+  'metadata.broker.list': eventStreamsCredentials.kafka_brokers_sasl.join(','),
   'security.protocol': 'sasl_ssl',
   'ssl.ca.location': process.env.CA_LOCATION || '/etc/ssl/certs',
   'sasl.mechanisms': 'PLAIN',
   'sasl.username': 'token',
-  'sasl.password': messageHubCredentials.api_key,
+  'sasl.password': eventStreamsCredentials.api_key,
   'broker.version.fallback': '0.10.0',  // still needed with librdkafka 0.11.6 to avoid fallback to 0.9.0
   'log.connection.close': false
 };
@@ -49,7 +49,7 @@ producerStream.on('error', function (err) {
 
 // Use the producer to send new work requests
 // and dispatch processed events to clients
-var messageHubInstance = {
+var eventStreamsInstance = {
   onFileUploaded: (filename) => {
     console.log(`Uploaded ${filename}`);
     if (producerStream.write(Buffer.from(filename))) {
@@ -115,7 +115,7 @@ consumer.on('ready', function () {
       for (var i = 0; i < consumedMessages.length; i++) {
         var m = consumedMessages[i];
         console.log('Message consumed: topic=' + m.topic + ', partition=' + m.partition + ', offset=' + m.offset + ', key=' + m.key + ', value=' + m.value.toString());
-        messageHubInstance.onFileProcessed(JSON.parse(m.value.toString()));
+        eventStreamsInstance.onFileProcessed(JSON.parse(m.value.toString()));
       }
       consumedMessages = [];
     }
@@ -129,4 +129,4 @@ consumer.on('data', function (m) {
 
 consumer.connect();
 
-module.exports = messageHubInstance;
+module.exports = eventStreamsInstance;
