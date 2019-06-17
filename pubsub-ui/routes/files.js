@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var eventStreamsInstance = require('../messagehub');
+var eventStreamsInstance = require('../eventstreams');
 var cosInstance = require('../objectStorage');
 var config = require('../config.js');
 
