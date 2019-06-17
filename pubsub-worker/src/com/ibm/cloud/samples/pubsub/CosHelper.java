@@ -1,4 +1,4 @@
-package com.messagehub.samples;
+package com.ibm.cloud.samples.pubsub;
 
 import java.util.List;
 

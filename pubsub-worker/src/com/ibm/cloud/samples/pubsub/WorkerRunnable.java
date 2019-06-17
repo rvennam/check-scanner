@@ -17,7 +17,7 @@
  * Licensed Materials - Property of IBM
  * (c) Copyright IBM Corp. 2018
  */
-package com.messagehub.samples;
+package com.ibm.cloud.samples.pubsub;
 
 import java.time.Duration;
 import java.util.Arrays;

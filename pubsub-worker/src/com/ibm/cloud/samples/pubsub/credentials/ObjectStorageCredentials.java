@@ -1,4 +1,4 @@
-package com.messagehub.samples.credentials;
+package com.ibm.cloud.samples.pubsub.credentials;
 
 import java.util.HashMap;
 import java.util.Map;

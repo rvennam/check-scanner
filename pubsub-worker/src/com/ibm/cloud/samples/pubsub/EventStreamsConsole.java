@@ -17,7 +17,7 @@
  * Licensed Materials - Property of IBM
  * (c) Copyright IBM Corp. 2015-2018
  */
-package com.messagehub.samples;
+package com.ibm.cloud.samples.pubsub;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,8 +44,8 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.cloud.objectstorage.SDKGlobalConfiguration;
 import com.ibm.cloud.objectstorage.services.s3.AmazonS3;
-import com.messagehub.samples.credentials.EventStreamsCredentials;
-import com.messagehub.samples.credentials.ObjectStorageCredentials;
+import com.ibm.cloud.samples.pubsub.credentials.EventStreamsCredentials;
+import com.ibm.cloud.samples.pubsub.credentials.ObjectStorageCredentials;
 
 /**
  * Console-based sample interacting with Message Hub, authenticating with

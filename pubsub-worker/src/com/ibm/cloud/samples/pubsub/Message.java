@@ -1,4 +1,4 @@
-package com.messagehub.samples;
+package com.ibm.cloud.samples.pubsub;
 
 public class Message {
 	private String name;
