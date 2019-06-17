@@ -44,8 +44,8 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.cloud.objectstorage.SDKGlobalConfiguration;
 import com.ibm.cloud.objectstorage.services.s3.AmazonS3;
-import com.messagehub.samples.bluemix.EventStreamsCredentials;
-import com.messagehub.samples.bluemix.ObjectStorageCredentials;
+import com.messagehub.samples.credentials.EventStreamsCredentials;
+import com.messagehub.samples.credentials.ObjectStorageCredentials;
 
 /**
  * Console-based sample interacting with Message Hub, authenticating with

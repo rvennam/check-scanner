@@ -1,4 +1,4 @@
-package com.messagehub.samples.bluemix;
+package com.messagehub.samples.credentials;
 
 import java.util.HashMap;
 import java.util.Map;
