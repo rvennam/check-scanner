@@ -1,13 +1,27 @@
-FROM node:6.10.0-alpine
+FROM ubuntu
+
+RUN  apt-get update -qqy \
+  && apt-get install -y --no-install-recommends \
+     build-essential \
+     node-gyp \
+     nodejs-dev \
+     libssl1.0-dev \
+     liblz4-dev \
+     libpthread-stubs0-dev \
+     libsasl2-dev \
+     libsasl2-modules \
+     make \
+     python \
+     nodejs npm ca-certificates \
+  && rm -rf /var/cache/apt/* /var/lib/apt/lists/*
 
 ADD . /app
+WORKDIR /app
 
 ENV NODE_ENV production
 ENV PORT 3000
-
 EXPOSE 3000
 
-WORKDIR "/app"
-
-RUN npm install
+RUN npm install -d
+ENV LD_LIBRARY_PATH=/app/node_modules/node-rdkafka/build/deps
 CMD ["npm", "start"]
