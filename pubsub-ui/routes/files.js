@@ -18,25 +18,25 @@ router.get('/', function (req, res, next) {
 
 /* POST new files */
 router.post('/', function (req, res) {
-  if(!req.files.uploadedFile){
+  if (!req.files.uploadedFile) {
     res.send('Error, no file uploaded');
     return;
   }
   console.log('Uploading file : ' + req.files.uploadedFile.name);
   cosInstance
-    .putObject({Bucket: bucketName, Key: req.files.uploadedFile.name, Body: req.files.uploadedFile.data})
+    .putObject({ Bucket: bucketName, Key: req.files.uploadedFile.name, Body: req.files.uploadedFile.data })
     .promise()
     .then(() => {
       console.log(req.files.uploadedFile.name + ' uploaded to Object Storage');
-      eventStreamsInstance.onFileUploaded(req.files.uploadedFile.name);      
+      eventStreamsInstance.onFileUploaded(req.files.uploadedFile.name);
     })
     .catch((error) => {
       console.log(`Did you create a bucket with name "${bucketName}"?`);
       console.log(error);
     });
-  
-  res.json({name: req.files.uploadedFile.name, status: 'awaiting'});
-  return ;
+
+  res.json({ name: req.files.uploadedFile.name, status: 'awaiting' });
+  return;
 });
 
 module.exports = router;

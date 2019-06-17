@@ -32,15 +32,15 @@ var producer_opts = {
 };
 
 // Add the common options to client and producer
-for (var key in driver_options) { 
+for (var key in driver_options) {
   consumer_opts[key] = driver_options[key];
   producer_opts[key] = driver_options[key];
 }
 
 
 const producerStream = Kafka.Producer.createWriteStream(producer_opts, {}, {
-    topic: 'work-topic',
-  });
+  topic: 'work-topic',
+});
 producerStream.on('error', function (err) {
   // Here's where we'll know if something went wrong sending to Kafka
   console.error('Error in our kafka stream');
@@ -59,7 +59,7 @@ var eventStreamsInstance = {
     }
   },
   onFileProcessed: (fileStatus) => {
-    console.log('Emitting socket.io message' , fileStatus);
+    console.log('Emitting socket.io message', fileStatus);
     io.emit('file-status', fileStatus);
   }
 };
