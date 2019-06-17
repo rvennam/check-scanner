@@ -56,11 +56,11 @@ spec:
                 name: apm-server-config
                 key: ibm_apm_access_token
                 optional: true
-          - name: MESSAGEHUB_CREDENTIALS
+          - name: EVENTSTREAMS_CREDENTIALS
             valueFrom:
               secretKeyRef:
                 key: binding
-                name: binding-mymessagehub
+                name: binding-myeventstreams
           - name: OBJECTSTORAGE_CREDENTIALS
             valueFrom:
               secretKeyRef:

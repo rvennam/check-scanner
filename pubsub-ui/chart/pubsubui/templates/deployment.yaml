@@ -37,11 +37,11 @@ spec:
         env:
           - name: PORT
             value : "{{ .Values.service.servicePort }}"
-          - name: MESSAGEHUB_CREDENTIALS
+          - name: EVENTSTREAMS_CREDENTIALS
             valueFrom:
               secretKeyRef:
                 key: binding
-                name: binding-mymessagehub
+                name: binding-myeventstreams
           - name: OBJECTSTORAGE_CREDENTIALS
             valueFrom:
               secretKeyRef:

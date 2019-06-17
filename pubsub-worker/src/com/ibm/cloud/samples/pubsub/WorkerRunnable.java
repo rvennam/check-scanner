@@ -17,19 +17,18 @@
  * Licensed Materials - Property of IBM
  * (c) Copyright IBM Corp. 2018
  */
-package com.messagehub.samples;
+package com.ibm.cloud.samples.pubsub;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-import java.util.concurrent.Future;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.KafkaException;
 import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.errors.WakeupException;
@@ -49,7 +48,8 @@ public class WorkerRunnable implements Runnable {
 	private final String resultTopic;
 	private final AmazonS3 cos;
 
-	public WorkerRunnable(Properties producerProperties, Properties consumerProperties, String workTopic, String resultTopic, AmazonS3 cos) {
+	public WorkerRunnable(Properties producerProperties, Properties consumerProperties, String workTopic,
+			String resultTopic, AmazonS3 cos) {
 		this.cos = cos;
 		this.resultTopic = resultTopic;
 
@@ -80,7 +80,7 @@ public class WorkerRunnable implements Runnable {
 				try {
 					// Poll on the Kafka consumer, waiting up to 3 secs if
 					// there's nothing to consume.
-					ConsumerRecords<String, String> records = kafkaConsumer.poll(3000);
+					ConsumerRecords<String, String> records = kafkaConsumer.poll(Duration.ofMillis(3000));
 
 					if (records.isEmpty()) {
 						logger.log(Level.INFO, "No messages consumed.");
@@ -114,36 +114,36 @@ public class WorkerRunnable implements Runnable {
 		System.out.println("processMessage: " + fileName);
 		try {
 			System.out.println("Getting Object from S3");
-			System.out.println(cos.getObject(MessageHubConsoleSample.bucketName, fileName).toString());
+			System.out.println(cos.getObject(EventStreamsConsole.bucketName, fileName).toString());
 			System.out.println("Simulating processing...");
 			Thread.sleep(3000);
 			// If a partition is not specified, the client will use the default
 			// partitioner to choose one.
 
 		} catch (Exception e) {
-			System.out.println("Error getting \"" + fileName + "\" from Object Storage with BucketName " + MessageHubConsoleSample.bucketName);
+			System.out.println("Error getting \"" + fileName + "\" from Object Storage with BucketName "
+					+ EventStreamsConsole.bucketName);
 			System.out.println(e.getMessage());
 			return;
 		}
-		
+
 		ObjectMapper mapper = new ObjectMapper();
 		Message message = new Message();
 		message.setName(fileName);
 		message.setStatus("processed");
-		if(System.getenv("MY_POD_NAME")!= null) {
+		if (System.getenv("MY_POD_NAME") != null) {
 			message.setWorkerID(System.getenv("MY_POD_NAME"));
 		} else {
 			message.setWorkerID(Long.toString(Thread.currentThread().getId()));
 		}
-		
+
 		ProducerRecord<String, String> record;
 		try {
 			System.out.println("Producing result message in the topic: " + resultTopic);
 			System.out.println(mapper.writeValueAsString(message));
 			record = new ProducerRecord<String, String>(resultTopic, mapper.writeValueAsString(message));
-			Future<RecordMetadata> future = kafkaProducer.send(record);
+			kafkaProducer.send(record);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
