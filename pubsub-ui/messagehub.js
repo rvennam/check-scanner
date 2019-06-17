@@ -14,7 +14,7 @@ if (process.env.MESSAGEHUB_CREDENTIALS) {
 var driver_options = {
   'metadata.broker.list': messageHubCredentials.kafka_brokers_sasl.join(','),
   'security.protocol': 'sasl_ssl',
-  'ssl.ca.location': '/usr/local/etc/openssl/cert.pem', //'/etc/ssl/certs',
+  'ssl.ca.location': process.env.CA_LOCATION || '/etc/ssl/certs',
   'sasl.mechanisms': 'PLAIN',
   'sasl.username': 'token',
   'sasl.password': messageHubCredentials.api_key,
