@@ -1,39 +1,132 @@
-var MessageHub = require('message-hub-rest');
+var Kafka = require('node-rdkafka');
 
 var messageHubCredentials;
 
-if(process.env.MESSAGEHUB_CREDENTIALS) {
+if (process.env.MESSAGEHUB_CREDENTIALS) {
   console.log('Found MessageHub credentials in MESSAGEHUB_CREDENTIALS env var')
   messageHubCredentials = JSON.parse(process.env.MESSAGEHUB_CREDENTIALS);
 } else {
   console.log('Missing env var MESSAGEHUB_CREDENTIALS, using credentials.json');
   messageHubCredentials = require('./credentials.json').MESSAGEHUB_CREDENTIALS
- }
+}
 
-
-var messageHubService = {
-  'messagehub': [
-    {
-      'label': 'messagehub',
-      'credentials': messageHubCredentials
-    }
-  ]
+// Config options common to all clients
+var driver_options = {
+  'metadata.broker.list': messageHubCredentials.kafka_brokers_sasl.join(','),
+  'security.protocol': 'sasl_ssl',
+  'ssl.ca.location': '/usr/local/etc/openssl/cert.pem', //'/etc/ssl/certs',
+  'sasl.mechanisms': 'PLAIN',
+  'sasl.username': 'token',
+  'sasl.password': messageHubCredentials.api_key,
+  'broker.version.fallback': '0.10.0',  // still needed with librdkafka 0.11.6 to avoid fallback to 0.9.0
+  'log.connection.close': false
 };
-var messageHubInstance = {};
+var consumer_opts = {
+  'client.id': 'pubsub-consumer',
+  'group.id': 'pubsub-group'
+};
 
-messageHubInstance.producerInstance = new MessageHub(messageHubService);
-console.log('Message Hub producer instance instantiated');
+var producer_opts = {
+  'client.id': 'pubsub-producer',
+  'dr_msg_cb': true  // Enable delivery reports with message payload
+};
 
-messageHubInstance
-  .producerInstance
-  .consume('my_consumer_group', 'my_consumer_instance', {'auto.offset.reset': 'largest'})
-  .then(function (response) {
-    console.log('Message Hub consumer instance instantiated');
-    messageHubInstance.consumerInstance = response[0];
-  })
-  .fail(function (error) {
-    console.log('ERROR creating consumer instance');
-    throw new Error(error);
+// Add the common options to client and producer
+for (var key in driver_options) { 
+  consumer_opts[key] = driver_options[key];
+  producer_opts[key] = driver_options[key];
+}
+
+
+const producerStream = Kafka.Producer.createWriteStream(producer_opts, {}, {
+    topic: 'work-topic',
   });
+producerStream.on('error', function (err) {
+  // Here's where we'll know if something went wrong sending to Kafka
+  console.error('Error in our kafka stream');
+  console.error(err);
+});
+
+// Use the producer to send new work requests
+// and dispatch processed events to clients
+var messageHubInstance = {
+  onFileUploaded: (filename) => {
+    console.log(`Uploaded ${filename}`);
+    if (producerStream.write(Buffer.from(filename))) {
+      console.log('Notified of new uploaded file');
+    } else {
+      console.log('Failed to send message');
+    }
+  },
+  onFileProcessed: (fileStatus) => {
+    console.log('Emitting socket.io message' , fileStatus);
+    io.emit('file-status', fileStatus);
+  }
+};
+
+var topicOpts = {
+  'auto.offset.reset': 'latest'
+};
+const consumer = new Kafka.KafkaConsumer(consumer_opts, topicOpts);
+consumer.on('event.log', function (log) {
+  console.log(log);
+});
+// Register error listener
+consumer.on('event.error', function (err) {
+  console.error('Error from consumer:' + JSON.stringify(err));
+});
+const topicName = 'result-topic';
+var consumedMessages = []
+// Register callback to be invoked when consumer has connected
+consumer.on('ready', function () {
+  console.log('The consumer has connected.');
+
+  // request metadata for one topic
+  consumer.getMetadata({
+    topic: topicName,
+    timeout: 10000
+  },
+    function (err, metadata) {
+      if (err) {
+        console.error('Error getting metadata: ' + JSON.stringify(err));
+        shutdown(-1);
+      } else {
+        console.log('Consumer obtained metadata: ' + JSON.stringify(metadata));
+        if (metadata.topics[0].partitions.length === 0) {
+          console.error('ERROR - Topic ' + topicName + ' does not exist. Exiting');
+          shutdown(-1);
+        }
+      }
+    });
+
+  consumer.subscribe([topicName]);
+
+  consumerLoop = setInterval(function () {
+    if (consumer.isConnected()) {
+      // The consume(num, cb) method can take a callback to process messages.
+      // In this sample code we use the ".on('data')" event listener instead,
+      // for illustrative purposes.
+      consumer.consume(10);
+    }
+
+    if (consumedMessages.length === 0) {
+      console.log('No messages consumed');
+    } else {
+      for (var i = 0; i < consumedMessages.length; i++) {
+        var m = consumedMessages[i];
+        console.log('Message consumed: topic=' + m.topic + ', partition=' + m.partition + ', offset=' + m.offset + ', key=' + m.key + ', value=' + m.value.toString());
+        messageHubInstance.onFileProcessed(JSON.parse(m.value.toString()));
+      }
+      consumedMessages = [];
+    }
+  }, 2000);
+});
+
+// Register a listener to process received messages
+consumer.on('data', function (m) {
+  consumedMessages.push(m);
+});
+
+consumer.connect();
 
 module.exports = messageHubInstance;

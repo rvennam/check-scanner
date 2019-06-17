@@ -15,7 +15,7 @@ if(process.env.OBJECTSTORAGE_CREDENTIALS) {
  var cos_config =   {
   'endpoint': config.EndPointURL,
   'apiKeyId': cosCredentials.apikey,
-  'ibmAuthEndpoint': 'https://iam.ng.bluemix.net/oidc/token',
+  'ibmAuthEndpoint': 'https://iam.cloud.ibm.com/oidc/token',
   'serviceInstanceId': cosCredentials.resource_instance_id
 };
 
