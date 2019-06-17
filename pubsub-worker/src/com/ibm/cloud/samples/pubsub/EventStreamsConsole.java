@@ -61,7 +61,6 @@ public class EventStreamsConsole {
 
 	private static Thread consumerThread = null;
 	private static WorkerRunnable consumerRunnable = null;
-	private static Thread producerThread = null;
 	private static String resourceDir;
 
 	public static String bucketName;
@@ -132,7 +131,7 @@ public class EventStreamsConsole {
 	public static void main(String args[]) {
 		try {
 			final String userDir = System.getProperty("user.dir");
-			final String messageHubCredentials = System.getenv("EVENTSTREAMS_CREDENTIALS"); // JSON string with IBM Event Streams credentials
+			final String eventStreamsCredentials = System.getenv("EVENTSTREAMS_CREDENTIALS"); // JSON string with IBM Event Streams credentials
 			final String objectStorageCredentials = System.getenv("OBJECTSTORAGE_CREDENTIALS"); // JSON string with IBM Object Storage credentials
 			final Properties cosProperties = new Properties();
 			resourceDir = userDir + File.separator + "resources";
@@ -155,7 +154,7 @@ public class EventStreamsConsole {
 			String service_instance_id = null;
 
  
-			if (messageHubCredentials == null || objectStorageCredentials == null) {
+			if (eventStreamsCredentials == null || objectStorageCredentials == null) {
 				logger.log(Level.ERROR, "Credentials missing");
 				System.exit(-1);
 			}
@@ -169,7 +168,7 @@ public class EventStreamsConsole {
 			// create the COS client
 			cos = CosHelper.createClient(cos_api_key, service_instance_id, endpoint_url, location);
 
-			EventStreamsCredentials credentials = mapper.readValue(messageHubCredentials, EventStreamsCredentials.class);
+			EventStreamsCredentials credentials = mapper.readValue(eventStreamsCredentials, EventStreamsCredentials.class);
 			AdminClient admin = AdminClient.create(getAdminConfigs(credentials.getBootstrapServers(), credentials.getApiKey()));
 			logger.log(Level.INFO, "Kafka Endpoints: " + credentials.getBootstrapServers());
 			
@@ -197,7 +196,7 @@ public class EventStreamsConsole {
             consumerThread = new Thread(consumerRunnable, "Consumer Thread");
             consumerThread.start();
 
-			logger.log(Level.INFO, "MessageHubConsoleSample will run until interrupted.");
+			logger.log(Level.INFO, "EventStreamsConsole will run until interrupted.");
 		} catch (Exception e) {
 			logger.log(Level.ERROR, "Exception occurred, application will terminate", e);
 			System.exit(-1);
@@ -210,36 +209,8 @@ public class EventStreamsConsole {
 	private static void shutdown() {
 		if (consumerRunnable != null)
 			consumerRunnable.shutdown();
-		if (producerThread != null)
-			producerThread.interrupt();
 		if (consumerThread != null)
 			consumerThread.interrupt();
-	}
-
-	/*
-	 * Retrieve client configuration information, using a properties file, for
-	 * connecting to Message Hub Kafka.
-	 */
-	static final Properties getClientConfiguration(Properties commonProps, String fileName, String user,
-			String password) {
-		Properties result = new Properties();
-		InputStream propsStream;
-
-		try {
-			propsStream = new FileInputStream(resourceDir + File.separator + fileName);
-			result.load(propsStream);
-			propsStream.close();
-		} catch (IOException e) {
-			logger.log(Level.ERROR, "Could not load properties from file");
-			return result;
-		}
-
-		result.putAll(commonProps);
-		// Adding in credentials for MessageHub auth
-		String saslJaasConfig = result.getProperty("sasl.jaas.config");
-		saslJaasConfig = saslJaasConfig.replace("USERNAME", user).replace("PASSWORD", password);
-		result.setProperty("sasl.jaas.config", saslJaasConfig);
-		return result;
 	}
 
 }
