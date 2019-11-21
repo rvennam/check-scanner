@@ -1,1 +1,10 @@
-{"build-release-ready":false,"build-debug-ready":false,"devops":false,"deploy-image":"registry.ng.bluemix.net/rvennamdocker/pubsubworker","chart-path":"","ibm-cluster":"mycluster"}
+{
+  "build-release-ready": true,
+  "build-debug-ready": false,
+  "devops": false,
+  "deploy-image": "us.icr.io/namespace/pubsubworker",
+  "chart-path": "",
+  "motd-access": "Thu, 21 Nov 2019 17:21:27 UTC",
+  "app-id": "",
+  "deploy-target": ""
+}
