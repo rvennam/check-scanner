@@ -190,7 +190,7 @@ public class EventStreamsConsole {
 				CreateTopicsResult ctr = admin.createTopics(Collections.singleton(workTopic));
 				ctr.all().get(10, TimeUnit.SECONDS);
 			} catch (ExecutionException tee) {
-				logger.log(Level.INFO, WORK_TOPIC_NAME + " already exists");
+				logger.log(Level.INFO, WORK_TOPIC_NAME + " already exists", tee);
 			}
 
 			try {
@@ -198,9 +198,9 @@ public class EventStreamsConsole {
 				CreateTopicsResult ctr = admin.createTopics(Collections.singleton(resultTopic));
 				ctr.all().get(10, TimeUnit.SECONDS);
 			} catch (ExecutionException tee) {
-				logger.log(Level.INFO, RESULT_TOPIC_NAME + " already exists");
+				logger.log(Level.INFO, RESULT_TOPIC_NAME + " already exists", tee);
 			}
-
+			
 			Properties producerProperties = getProducerConfigs(credentials.getBootstrapServers(),
 					credentials.getApiKey());
 			Properties consumerProperties = getConsumerConfigs(credentials.getBootstrapServers(),
