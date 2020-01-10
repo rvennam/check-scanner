@@ -5,7 +5,7 @@
 cat build.properties
 
 echo "Check cluster availability"
-IP_ADDR=$(ibmcloud cs workers ${PIPELINE_KUBERNETES_CLUSTER_NAME} | grep normal | head -n 1 | awk '{ print $2 }')
+IP_ADDR=$(ibmcloud ks workers --cluster ${PIPELINE_KUBERNETES_CLUSTER_NAME} | grep normal | head -n 1 | awk '{ print $2 }')
 if [ -z $IP_ADDR ]; then
     echo "$PIPELINE_KUBERNETES_CLUSTER_NAME not created or workers not ready"
     exit 1
@@ -119,6 +119,6 @@ helm history ${RELEASE_NAME}
 # kubectl describe pods --selector app=${CHART_NAME} --namespace ${CLUSTER_NAMESPACE}
 
 echo "=========================================================="
-IP_ADDR=$(ibmcloud cs workers ${PIPELINE_KUBERNETES_CLUSTER_NAME} | grep normal | head -n 1 | awk '{ print $2 }')
+IP_ADDR=$(ibmcloud ks workers ${PIPELINE_KUBERNETES_CLUSTER_NAME} | grep normal | head -n 1 | awk '{ print $2 }')
 PORT=$(kubectl get services --namespace ${CLUSTER_NAMESPACE} | grep ${RELEASE_NAME} | sed 's/.*:\([0-9]*\).*/\1/g')
 echo -e "View the application at: http://${IP_ADDR}:${PORT}"
