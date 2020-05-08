@@ -17,7 +17,7 @@ spec:
   selector:
     app: "kafkajavaconsolesample-selector"
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "kafkajavaconsolesample-deployment"
@@ -25,6 +25,9 @@ spec:
   # this replicas value is default
   # modify it according to your case
   replicas: 1
+  selector:
+    matchLabels:
+      app: "kafkajavaconsolesample-selector"
   template:
     metadata:
       labels:

@@ -1,5 +1,5 @@
 {{ if .Values.base.enabled }}
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: "{{  .Chart.Name }}-basedeployment"
@@ -7,6 +7,9 @@ metadata:
     chart: '{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}'
 spec:
   replicas: {{ .Values.base.replicaCount }}
+  selector:
+    matchLabels:
+      app: "{{  .Chart.Name }}-selector"
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   template:
     metadata:
