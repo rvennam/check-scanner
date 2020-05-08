@@ -1,11 +1,13 @@
 FROM ubuntu
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN  apt-get update -qqy \
   && apt-get install -y --no-install-recommends \
      build-essential \
      node-gyp \
-     nodejs-dev \
-     libssl1.0-dev \
+     nodejs \
+     libssl-dev \
      liblz4-dev \
      libpthread-stubs0-dev \
      libsasl2-dev \
