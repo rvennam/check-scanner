@@ -17,33 +17,28 @@
 // Licensed Materials - Property of IBM
 // © Copyright IBM Corp. 2015-2016
 //
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'application'
-
-mainClassName = 'com.ibm.cloud.samples.pubsub.EventStreamsConsole'
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
-version = '2.0'
-
-repositories {
-    maven { url = "http://repo.maven.apache.org/maven2" }
-
-    // Read from lib/ directory
-    flatDir {
-        dirs 'lib'
-    }
+plugins {
+  id 'application'
+  id 'java'
+  id 'eclipse'
 }
 
-// Compile tools.jar and all jars in lib folder as dependencies
-dependencies {
-	compile 'org.apache.kafka:kafka-clients:2.2.+'
-    compile 'log4j:log4j:1.2.17'
-    compile 'org.slf4j:slf4j-log4j12:1.7.25'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
-	compile group: 'com.ibm.cos', name: 'ibm-cos-java-sdk', version: '2.0.2'
+version = '2.0'
+mainClassName = 'com.ibm.cloud.samples.pubsub.EventStreamsConsole'
 
-	
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    maven { url 'http://insecure.repo1.maven.org/maven2/' }
+}
+
+dependencies {
+  compile 'org.apache.kafka:kafka-clients:2.4.+'
+  compile 'log4j:log4j:1.2.17'
+  compile 'org.slf4j:slf4j-log4j12:1.7.25'
+  compile 'com.fasterxml.jackson.core:jackson-databind:2.9.7'
+  compile group: 'com.ibm.cos', name: 'ibm-cos-java-sdk', version: '2.0.2'
 }
 
 task downloadDependencies(type: Exec) {
@@ -64,7 +59,6 @@ compileJava {
     options.encoding = 'ISO-8859-1'
 }
 
-// Create the output JAR file.
 jar {
     from "resources/log4j.properties"
     
@@ -101,7 +95,7 @@ uploadArchives {
         def basePath = baseName + '-' + version
 
         from('resources') {
-            into { basePath + '/bin/resources' }
+            into { basePath + '/resources' }
             exclude 'log4j.properties'
         }
 
@@ -115,14 +109,7 @@ uploadArchives {
 sourceSets {
     main {
         java {
-            srcDirs = ["src", "resources"]
+            srcDirs = ["src/main/java", "src/main/resources"]
         }
     }
 }
-
-eclipse {
-
-}
-
-// force eclipse files to regenerate each time
-tasks.eclipse.dependsOn cleanEclipse
