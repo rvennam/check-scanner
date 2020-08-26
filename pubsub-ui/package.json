@@ -12,7 +12,7 @@
     "debug": "4.1.1",
     "dotenv": "8.0.0",
     "express": "4.17.1",
-    "express-fileupload": "1.1.5",
+    "express-fileupload": "1.1.9",
     "ibm-cos-sdk": "1.4.5",
     "message-hub-rest": "2.0.0",
     "morgan": "^1.9.1",
