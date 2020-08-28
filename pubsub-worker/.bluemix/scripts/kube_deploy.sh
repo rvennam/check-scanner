@@ -19,9 +19,9 @@ else
   echo -e "Namespace ${CLUSTER_NAMESPACE} created."
 fi
 
-echo "Configuring Tiller (Helm's server component)"
-helm init --upgrade
-kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system
+# echo "Configuring Tiller (Helm's server component)"
+# helm init --upgrade
+# kubectl rollout status -w deployment/tiller-deploy --namespace=kube-system
 helm version
 
 echo "CHART_NAME: $CHART_NAME"
