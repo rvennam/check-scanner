@@ -21,8 +21,8 @@ ADD . /app
 WORKDIR /app
 
 ENV NODE_ENV production
-ENV PORT 3000
-EXPOSE 3000
+ENV PORT 8080
+EXPOSE 8080
 
 RUN npm install -d
 ENV LD_LIBRARY_PATH=/app/node_modules/node-rdkafka/build/deps
