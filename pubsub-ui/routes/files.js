@@ -5,7 +5,7 @@ var eventStreamsInstance = require('../eventstreams');
 var cosInstance = require('../objectStorage');
 var config = require('../config.js');
 
-var bucketName = config.COSBucketName;
+var bucketName = process.env.COSBUCKETNAME || config.COSBucketName;
 
 /* GET files listing. */
 router.get('/', function (req, res, next) {
