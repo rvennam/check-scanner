@@ -9,7 +9,13 @@ if(process.env.OBJECTSTORAGE_CREDENTIALS) {
   cosCredentials = JSON.parse(process.env.OBJECTSTORAGE_CREDENTIALS);
 } else {
   console.log('Missing env var OBJECTSTORAGE_CREDENTIALS, using credentials.json');
-  cosCredentials = require('./credentials.json').OBJECTSTORAGE_CREDENTIALS
+  try {
+    eventStreamsCredentials = require('./credentials.json').EVENTSTREAMS_CREDENTIALS
+   }
+   catch (e) {
+    console.log('Object Storage credentials not found!')
+    return;
+   }
  }
 
  var cos_config =   {
