@@ -10,7 +10,7 @@ if(process.env.OBJECTSTORAGE_CREDENTIALS) {
 } else {
   console.log('Missing env var OBJECTSTORAGE_CREDENTIALS, using credentials.json');
   try {
-    eventStreamsCredentials = require('./credentials.json').EVENTSTREAMS_CREDENTIALS
+    cosCredentials = require('./credentials.json').OBJECTSTORAGE_CREDENTIALS
    }
    catch (e) {
     console.log('Object Storage credentials not found!')

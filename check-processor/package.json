@@ -1,0 +1,41 @@
+{
+  "name": "event-streams-nodejs-console-sample",
+  "version": "3.0.0",
+  "description": "Nodejs sample that uses node-rdkafka to interact with Event Streams",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ibm-messaging/event-streams-samples"
+  },
+  "scripts": {
+    "start": "node ./app.js"
+  },
+  "author": "IBM",
+  "license": "Apache-2.0",
+  "maintainers": [
+    {
+      "name": "mimaison",
+      "email": "mickael.maison@uk.ibm.com"
+    },
+    {
+      "name": "edoardocomar",
+      "email": "ecomar@uk.ibm.com"
+    }
+  ],
+  "keywords": [
+    "ibm",
+    "message",
+    "hub",
+    "eventstreams",
+    "kafka",
+    "apache",
+    "bluemix",
+    "cloud",
+    "node-rdkafka"
+  ],
+  "dependencies": {
+    "node-rdkafka": "2.7.4"
+  },
+  "engines": {
+    "node": "10"
+  }
+}
