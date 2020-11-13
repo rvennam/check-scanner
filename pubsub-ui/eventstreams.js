@@ -73,6 +73,7 @@ var eventStreamsInstance = {
 var topicOpts = {
   'auto.offset.reset': 'latest'
 };
+console.log(consumer_opts);
 const consumer = new Kafka.KafkaConsumer(consumer_opts, topicOpts);
 consumer.on('event.log', function (log) {
   console.log(log);
