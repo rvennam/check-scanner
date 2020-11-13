@@ -9,18 +9,26 @@ if (process.env.EVENTSTREAMS_CREDENTIALS) {
   console.log('Missing env var EVENTSTREAMS_CREDENTIALS, using credentials.json');
   try {
     eventStreamsCredentials = require('./credentials.json').EVENTSTREAMS_CREDENTIALS
-   }
-   catch (e) {
+  }
+  catch (e) {
     console.log('Event Streams credentials not found!')
     return;
-   }
+  }
+}
+
+
+var ca_location = '/etc/ssl/certs';
+if (process.platform === "darwin") {
+  ca_location = '/usr/local/etc/openssl@1.1/cert.pem'
+} else if (fs.existsSync("/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem")) {
+  ca_location = '/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem'
 }
 
 // Config options common to all clients
 var driver_options = {
   'metadata.broker.list': eventStreamsCredentials.kafka_brokers_sasl.join(','),
   'security.protocol': 'sasl_ssl',
-  'ssl.ca.location': process.env.CA_LOCATION || '/etc/ssl/certs',
+  'ssl.ca.location': process.env.CA_LOCATION || ca_location,
   'sasl.mechanisms': 'PLAIN',
   'sasl.username': 'token',
   'sasl.password': eventStreamsCredentials.api_key,

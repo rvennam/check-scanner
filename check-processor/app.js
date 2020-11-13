@@ -58,9 +58,13 @@ if (services.hasOwnProperty('instance_id')) {
         }
     }
 }
+const fs = require("fs"); // Or `import fs from "fs";` with ESM
+
 opts.calocation = '/etc/ssl/certs';
 if (process.platform === "darwin") {
     opts.calocation = '/usr/local/etc/openssl@1.1/cert.pem'
+} else if (fs.existsSync("/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem")) {
+    opts.calocation = '/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem'
 }
 
 console.log("Kafka Endpoints: " + opts.brokers);
