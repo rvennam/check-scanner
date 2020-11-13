@@ -59,8 +59,9 @@ if (services.hasOwnProperty('instance_id')) {
     }
 }
 opts.calocation = '/etc/ssl/certs';
-opts.calocation = '/usr/local/etc/openssl@1.1/cert.pem'
-
+if (process.platform === "darwin") {
+    opts.calocation = '/usr/local/etc/openssl@1.1/cert.pem'
+}
 
 console.log("Kafka Endpoints: " + opts.brokers);
 
