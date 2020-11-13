@@ -33,62 +33,132 @@ exports.consumerLoop = consumerLoop;
  * @param {function} shutdown - shutdown function
  * @return {KafkaConsumer} - the KafkaConsumer instance
  */
-exports.buildConsumer = function(Kafka, consumer_opts, topicName, shutdown) {
+exports.buildConsumer = function (Kafka, consumer_opts, topicName, shutdown) {
     var topicOpts = {
         'auto.offset.reset': 'latest'
     };
 
+    // COS
+    var cosInstance = require('./objectStorage');
+    var bucketName = process.env.COSBUCKETNAME;
+    console.log("Bucket: " + bucketName);
+
+    cosInstance.listObjects({
+        Bucket: bucketName
+    }, (err, data) => err ? console.log(err) : console.log(data));
+
+    //tesseract
+
+    const tesseract = require("node-tesseract-ocr")
+    var fs = require('fs');
+
     consumer = new Kafka.KafkaConsumer(consumer_opts, topicOpts);
 
     // Register listener for debug information; only invoked if debug option set in driver_options
-    consumer.on('event.log', function(log) {
+    consumer.on('event.log', function (log) {
         console.log(log);
     });
 
     // Register error listener
-    consumer.on('event.error', function(err) {
+    consumer.on('event.error', function (err) {
         console.error('Error from consumer:' + JSON.stringify(err));
     });
 
     var consumedMessages = []
     // Register callback to be invoked when consumer has connected
-    consumer.on('ready', function() {
+    consumer.on('ready', function () {
         console.log('The consumer has connected.');
 
         // request metadata for one topic
         consumer.getMetadata({
             topic: topicName,
             timeout: 10000
-        }, 
-        function(err, metadata) {
-            if (err) {
-                console.error('Error getting metadata: ' + JSON.stringify(err));
-                shutdown(-1);
-            } else {
-                console.log('Consumer obtained metadata: ' + JSON.stringify(metadata));
-                if (metadata.topics[0].partitions.length === 0) {
-                    console.error('ERROR - Topic ' + topicName + ' does not exist. Exiting');
+        },
+            function (err, metadata) {
+                if (err) {
+                    console.error('Error getting metadata: ' + JSON.stringify(err));
                     shutdown(-1);
+                } else {
+                    console.log('Consumer obtained metadata: ' + JSON.stringify(metadata));
+                    if (metadata.topics[0].partitions.length === 0) {
+                        console.error('ERROR - Topic ' + topicName + ' does not exist. Exiting');
+                        shutdown(-1);
+                    }
                 }
-            }
-        });
+            });
 
         consumer.subscribe([topicName]);
 
         consumerLoop = setInterval(function () {
-            if (consumer.isConnected()) { 
+            if (consumer.isConnected()) {
                 // The consume(num, cb) method can take a callback to process messages.
                 // In this sample code we use the ".on('data')" event listener instead,
                 // for illustrative purposes.
                 consumer.consume(10);
-            }    
+            }
 
             if (consumedMessages.length === 0) {
-                console.log('No messages consumed');
+                //console.log('No messages consumed');
             } else {
                 for (var i = 0; i < consumedMessages.length; i++) {
                     var m = consumedMessages[i];
                     console.log('Message consumed: topic=' + m.topic + ', partition=' + m.partition + ', offset=' + m.offset + ', key=' + m.key + ', value=' + m.value.toString());
+                    var fileName = m.value.toString();
+                    cosInstance.getObject({
+                        Bucket: bucketName,
+                        Key: fileName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err)
+                            return;
+                        } else {
+                            console.log("got image!", data)
+                            fs.writeFileSync("images/" + fileName, data.Body);
+                            tesseract.recognize("images/" + fileName, {
+                                lang: "mcr2",
+                                oem: 1,
+                                psm: 3,
+                            })
+                                .then(text => {
+                                    fs.unlink("images/" + fileName, (err) => {
+                                        if (err) {
+                                          console.error("Error deleting temp file: " + fileName)
+                                        }
+                                    })
+                                    var split = text.match("\\[[0-9]{8}.*")[0].replace(/@/g, '').replace(/\[/g, '').split(' ')
+                                    var newFileName = `${split[0]}:${split[1]}::${fileName}`;
+                                    console.log(split[0]);
+                                    console.log(split[1]);
+                                    console.log("new file: " + newFileName);
+
+                                    cosInstance
+                                        .putObject({ Bucket: bucketName, Body: data.Body, Key: newFileName })
+                                        .promise()
+                                        .then(() => {
+                                            console.log(fileName + ' uploaded to Object Storage');
+                                        })
+                                        .catch((error) => {
+                                            console.log(error);
+                                        });
+
+                                    cosInstance
+                                        .deleteObject({ Bucket: bucketName, Key: fileName })
+                                        .promise()
+                                        .then(() => {
+                                            console.log(fileName + ' deleted from Object Storage');
+                                        })
+                                        .catch((error) => {
+                                            console.log(error);
+                                        });
+
+                                })
+                                .catch(error => {
+                                    console.log(error.message)
+                                })
+                        }
+                    }
+                    );
+
                 }
                 consumedMessages = [];
             }
@@ -96,7 +166,7 @@ exports.buildConsumer = function(Kafka, consumer_opts, topicName, shutdown) {
     });
 
     // Register a listener to process received messages
-    consumer.on('data', function(m) {
+    consumer.on('data', function (m) {
         consumedMessages.push(m);
     });
     return consumer;

@@ -1,23 +1,60 @@
 var files = {};
-function addFile(file) {
-    files[file.name] = file;
-    displayFiles();
+
+function getFiles() {
+    $.ajax({
+        type: 'GET',
+        url: '/files',
+        success: function (data) {
+            console.log(data);
+            data.forEach((file) => {
+                console.log(file)
+                file.status = "awaiting";
+                if(file.Key.includes("::")){
+                    file.routing = file.Key.split(":")[0];
+                    file.account = file.Key.split(":")[1];
+                    file.name = file.Key.split("::")[1];
+                    file.status = "processed";
+                }
+                else {
+                    file.name = file.Key
+                }
+                files[file.name] = file;
+            }
+            );
+            displayFiles();
+        },
+        error: function (e) {
+            $('#result').text(e.responseText);
+            console.log('ERROR : ', e);
+        }
+    });
 }
-function updateFile(updatedFile){
-    files[updatedFile.name] = updatedFile;
-    displayFiles();
+
+function deleteFiles() {
+    $.ajax({
+        type: 'DELETE',
+        url: '/files',
+        success: function (data) {
+            displayFiles();
+        },
+        error: function (e) {
+            $('#result').text(e.responseText);
+            console.log('ERROR : ', e);
+        }
+    });
 }
 function displayFiles() {
     $('#results').empty();
 
+    console.log(files);
     for (var fileName in files) {
         var icon;
         var tag;
         var file = files[fileName];
-        switch(file.status) {
+        switch (file.status) {
             case 'processed':
                 icon = 'check'
-                tag = `<span class="tag is-info">${file.status} by ${file.workerID}</span>`
+                tag = `<span class="tag is-info">Routing: ${file.routing}, Account: ${file.routing} </span>`
                 break;
             case 'awaiting':
                 icon = 'spinner'
@@ -30,14 +67,15 @@ function displayFiles() {
                     .addClass('panel-block')
                     .html(`${file.name}&nbsp;<span class="panel-icon"><i class="fas fa-${icon}"></i></span>${tag}`)
 
-        );
-      }
+            );
+    }
 };
 
 $(document).ready(function () {
-    $('#uploadedFile').change(function(){
+    $('#uploadedFile').change(function () {
         $('#fileLabel').text(this.files[0].name);
     });
+    $('#clearBucket').click((event)=>deleteFiles());
     $('#btnSubmit')
         .click(function (event) {
             //stop submit the form, we will post it manually.
@@ -60,7 +98,7 @@ $(document).ready(function () {
                 timeout: 60000,
                 success: function (data) {
                     $('#result').text(data.name + ' uploaded to Object Storage');
-                    addFile(data);
+                    getFiles();
                     $('#btnSubmit').prop('disabled', false);
                 },
                 error: function (e) {
@@ -74,10 +112,5 @@ $(document).ready(function () {
 
 });
 
-$(function () {
-    var socket = io();
-    socket.on('file-status', function(msg){
-        console.log('Got socket.io msg: ', msg);
-        updateFile(msg);
-    });
-});
+getFiles();
+//setInterval(getFiles, 3000);

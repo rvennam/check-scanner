@@ -33,7 +33,10 @@
     "node-rdkafka"
   ],
   "dependencies": {
-    "node-rdkafka": "2.7.4"
+    "fs": "0.0.1-security",
+    "ibm-cos-sdk": "^1.8.0",
+    "node-rdkafka": "2.7.4",
+    "node-tesseract-ocr": "^2.0.0"
   },
   "engines": {
     "node": "10"

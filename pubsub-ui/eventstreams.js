@@ -116,7 +116,7 @@ consumer.on('ready', function () {
     }
 
     if (consumedMessages.length === 0) {
-      console.log('No messages consumed');
+      //console.log('No messages consumed');
     } else {
       for (var i = 0; i < consumedMessages.length; i++) {
         var m = consumedMessages[i];
@@ -125,7 +125,7 @@ consumer.on('ready', function () {
       }
       consumedMessages = [];
     }
-  }, 2000);
+  }, 3000);
 });
 
 // Register a listener to process received messages
