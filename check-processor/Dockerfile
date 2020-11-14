@@ -31,6 +31,7 @@ RUN tesseract --version
 WORKDIR /usr/src/app
 
 COPY *.js *.json *.md /usr/src/app/
+COPY images /usr/src/app/images 
 
 RUN npm install -d
 ENV LD_LIBRARY_PATH=/usr/src/app/node_modules/node-rdkafka/build/deps
