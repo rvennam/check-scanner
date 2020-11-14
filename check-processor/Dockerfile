@@ -22,6 +22,12 @@ RUN  apt-get update -qqy \
      nodejs npm ca-certificates \
   && rm -rf /var/cache/apt/* /var/lib/apt/lists/*
 
+
+RUN apt-get install -y python build-essential
+RUN apt update && apt install -y libsm6 libxext6
+RUN apt-get -y install tesseract-ocr
+RUN tesseract --version
+
 WORKDIR /usr/src/app
 
 COPY *.js *.json *.md /usr/src/app/
