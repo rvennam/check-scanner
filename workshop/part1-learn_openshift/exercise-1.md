@@ -1,8 +1,8 @@
 # Deploying an application
 
-In this exercise, you'll deploy a simple Node.js Express application - "Example Health". Example Health is a simple UI for a patient health records system. We'll use this example to demonstrate key OpenShift features throughout this workshop. You can find the sample application GitHub repository here: [https://github.com/svennam92/node-s2i-openshift](https://github.com/svennam92/node-s2i-openshift)
+In this exercise, you'll deploy a simple Node.js Express application - "Check Upload". Check Upload is a simple UI for uploading images of checks. We'll use this example to demonstrate key OpenShift features throughout this workshop. You can find the sample application GitHub repository here: [https://github.com/rvennam/check-scanner](https://github.com/rvennam/check-scanner)
 
-## Deploy Example Health
+## Create Check Scanner project
 
 1. Launch the `OpenShift web console`.
 
@@ -12,7 +12,7 @@ In this exercise, you'll deploy a simple Node.js Express application - "Example 
 
     ![](../assets/ocp-projects.png)
 
-1. Create a new project by selecting **Create Project**. Call the project "example-health".
+1. Create a new project by selecting **Create Project**. Call the project "check-scanner".
 
     ![](../assets/ocp-create-project.png)
 
@@ -20,21 +20,31 @@ In this exercise, you'll deploy a simple Node.js Express application - "Example 
 
     ![](../assets/ocp-admin-project.png)
 
+## Deploy Check Upload application
+
 1. Switch from the Administrator to the **Developer** view. Make sure your project is selected.
 
     ![](../assets/ocp-project-view.png)
 
 1. Let's deploy the application by selecting **From Git**.
 
-1. Enter the repository `https://github.com/svennam92/node-s2i-openshift` in the Git Repo URL field.
+1. Enter the repository `https://github.com/rvennam/check-scanner` in the Git Repo URL field.
 
     ![](../assets/ocp-configure-git.png)
 
-    Note that the builder image automatically detected the language Node.js.
+1. Expand **Show Advanced Git Options** and under **Context Dir** enter `/check-ui`
 
-1. Name your application such as `patient-ui`. Keep the default options and click **Create** at the bottom of the window to build and deploy the application.
+1. Under **Builder**, select **Node.js**
 
-    ![](../assets/ocp-app-name-short.png)
+1 Under **General**
+    **Application Name**: Remove all characters and leave the field empty.
+    **Name**: `check-upload`
+   
+   ![](../assets/ocp-app-name-short.png)
+   
+1. Click **Create** at the bottom of the window to build and deploy the application.
+
+    ![](../assets/check-upload-name.png)
 
     Your application is being deployed.
 
@@ -44,7 +54,7 @@ In this exercise, you'll deploy a simple Node.js Express application - "Example 
 
     ![](../assets/ocp-topology-app.png)
 
-1. Select the app. You should see a single Deployment where you can see your Pods, Builds, Services and Routes.
+2. Select the app and check on **Resources**. You should see your Pods, Builds, Services and Routes.
 
     ![](../assets/ocp-topo-app-details.png)
 
@@ -53,21 +63,19 @@ In this exercise, you'll deploy a simple Node.js Express application - "Example 
     * **Services**: Tells OpenShift how to access your Pods by grouping them together as a service and defining the port to listen to
     * **Routes**: Exposes your services to the outside world using the LoadBalancer provided by the IBM Cloud network
 
-1. Click on **View Logs** next to your completed Build. This shows you the process that OpenShift took to install the dependencies for your Node.js application and build/push a Docker image.
+3. The build can take a few minutes. Click on **View Logs** next to your Build. This shows you the process that OpenShift took to install the dependencies for your Node.js application and build/push a Docker image.
 
     ![Build Logs](../assets/ocp43-build-logs.png)
 
     You should see that looks like this:
     ```
-    Successfully pushed image-registry.openshift-image-registry.svc:5000/example-health/patient-ui@sha256:f9385e010144f36353a74d16b6af10a028c12d005ab4fc0b1437137f6bd9e20a
+    Successfully pushed image-registry.openshift-image-registry.svc:5000/check-scanner/check-upload@sha256:e98f9373ec8864a92a155ced589712722cc26670d265ee209e60a78343325688
     Push successful
     ```
 
-1. Click back to the **Topology** and select your app again. Click on the url under **Routes** to open your application with the URL.
+4. Click back to the **Topology** and select your app again. Click on the url under **Routes** to open your application with the URL.
 
     ![](../assets/patient-ui-web.png)
-
-    You can enter any strings for username and password, for instance `test:test` because the app is running in demo mode.
 
 Congrats! You've deployed a `Node.js` app to OpenShift Container Platform.
 
