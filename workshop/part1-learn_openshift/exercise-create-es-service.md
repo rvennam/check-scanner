@@ -32,4 +32,8 @@ Bind the secret to Check Upload app as well:
 2. Click on **es-credentials**
 3. **Add Secret to Workload** -> **Select a workload** -> **check-processor** -> **Save**
 
-Both of your applications will restart with the new sets of credentials.
+Both of your applications will restart with the new sets of credentials. 
+
+Visit your Check Upload application and upload the sample image again. This time, you will see that the check getting processed in a few seconds. 
+
+![](../assets/check-scanner-ui.png)

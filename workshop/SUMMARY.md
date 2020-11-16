@@ -5,17 +5,18 @@
 ## Getting Started
 * [Create Account and Get Cluster](getting-started/get_started.md)
 
-## Deploy Check Upload
-* [Deploying an App](part1-learn_openshift/exercise-1.md)
-* [Create Object Storage service](part1-learn_openshift/exercise-create-cos-service.md)
+## Deploy the Check Scanner applications
+* [Deploy Check Upload](part1-learn_openshift/exercise-deploy-upload.md)
+* [Create Object Storage](part1-learn_openshift/exercise-create-cos-service.md)
+* [Deploy Check Upload](part1-learn_openshift/exercise-deploy-processor.md)
 * [Create Event Streams service](part1-learn_openshift/exercise-create-es-service.md)
 
-## Deploy Check Processor
+<!-- ## Deploy Check Processor
 * [Cloudant with OperatorHub](part2-openshift_ibmcloud/exercise-5.md)
 * [Configure Sysdig Agent](part2-openshift_ibmcloud/exercise-6.md)
 * [Configure LogDNA Agent](part2-openshift_ibmcloud/exercise-7.md)
 * [Analyze Logs w/ LogDNA](part2-openshift_ibmcloud/exercise-8.md)
-* [Monitor Cluster w/ SysDig](part2-openshift_ibmcloud/exercise-9.md)
+* [Monitor Cluster w/ SysDig](part2-openshift_ibmcloud/exercise-9.md) -->
 
 ## Resources
 * [Docs: Red Hat OpenShift on IBM Cloud](https://cloud.ibm.com/docs/openshift)
