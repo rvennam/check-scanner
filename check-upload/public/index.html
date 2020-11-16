@@ -21,13 +21,13 @@
 
     <div class="container">
       <h1 class="title">
-        Message Hub Example
+        Check Scanner
       </h1>
-      <p class="subtitle">Upload files to Object Storage for background processing.</p>
+      <p class="subtitle">Upload an image of a check. The image will be stored in Object Storage a message will be published to Event Streams to inform any listeners that a check is ready for processing.</p>
 
       <div class="flexContainer">
         <div class = "fileInput">
-          <p class="subtitle">Upload files</p>
+          <p class="subtitle">Upload a check</p>
           <form method="POST" encType="multipart/form-data" id="fileUploadForm">
 
 
@@ -60,7 +60,7 @@
 
         </div>
         <div class = "COSContents">
-          <p class="subtitle">Uploaded files</p>
+          <p class="subtitle">Uploaded checks</p>
           <div id = "results" class = "panel">
             None
           </div>

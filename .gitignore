@@ -1,4 +1,4 @@
-pubsub-ui/.ibm-project
+check-upload/.ibm-project
 pubsub-worker/caches/*
 *.log
 pubsub-worker/native/19/linux/libnative-platform.so.lock
@@ -6,3 +6,4 @@ pubsub-worker/daemon/*
 pubsub-worker/notifications/6.4/release-features.rendered
 pubsub-worker/native/*
 pubsub-worker/.ibm-project
+.env
