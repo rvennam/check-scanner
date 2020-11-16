@@ -12,6 +12,10 @@ console.log("Bucket: " + bucketName);
 /* GET files listing. */
 router.get('/', function (req, res, next) {
   console.log(cosInstance);
+  if(!cosInstance){
+    res.send({message: "Object Storage not configured!"})
+    return;
+  }
   cosInstance.listObjects({
     Bucket: bucketName
   }, (err, data) => err ? console.log(err) : res.send(data.Contents));

@@ -7,6 +7,10 @@ function getFiles() {
         url: '/files',
         success: function (data) {
             files = {}
+
+            if(data.message){
+                $('#result').text(data.message);
+            }
             data.forEach((file) => {
                 file.status = "awaiting";
                 if(file.Key.includes("::")){

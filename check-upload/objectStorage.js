@@ -14,18 +14,16 @@ if(process.env.OBJECTSTORAGE_CREDENTIALS) {
    }
    catch (e) {
     console.log('Object Storage credentials not found!')
-    return;
    }
  }
-
- var cos_config =   {
-  'endpoint': config.EndPointURL,
-  'apiKeyId': cosCredentials.apikey,
-  'ibmAuthEndpoint': 'https://iam.cloud.ibm.com/oidc/token',
-  'serviceInstanceId': cosCredentials.resource_instance_id
-};
-
-var cos = new COS_SDK.S3(cos_config);
-
+if(cosCredentials){
+  var cos_config =   {
+    'endpoint': config.EndPointURL,
+    'apiKeyId': cosCredentials.apikey,
+    'ibmAuthEndpoint': 'https://iam.cloud.ibm.com/oidc/token',
+    'serviceInstanceId': cosCredentials.resource_instance_id
+  };
+  cos = new COS_SDK.S3(cos_config);
+}
 
 module.exports = cos;
