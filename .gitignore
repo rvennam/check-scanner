@@ -7,3 +7,4 @@ pubsub-worker/notifications/6.4/release-features.rendered
 pubsub-worker/native/*
 pubsub-worker/.ibm-project
 .env
+node_modules
