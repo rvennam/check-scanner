@@ -5,14 +5,16 @@ var eventStreamsInstance = require('../eventstreams');
 var cosInstance = require('../objectStorage');
 var config = require('../config.js');
 
-var bucketName = process.env.COSBUCKETNAME || config.COSBucketName;
-
-console.log("Bucket: " + bucketName);
+var bucketName;
+if(process.env.COSBUCKETNAME) {
+  bucketName = process.env.COSBUCKETNAME;
+} else {
+  console.log('Missing env var COSBUCKETNAME');
+ }
 
 /* GET files listing. */
 router.get('/', function (req, res, next) {
-  console.log(cosInstance);
-  if(!cosInstance){
+  if(!cosInstance || !bucketName){
     res.send({message: "Object Storage not configured!"})
     return;
   }

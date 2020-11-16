@@ -73,9 +73,11 @@ In this exercise, you'll deploy a simple Node.js Express application - "Check Up
     Push successful
     ```
 
+4. Once the build is complete, you should see the **Pod** will switch to **Running**. Click on **View logs**
+
 4. Click back to the **Topology** and select your app again. Click on the url under **Routes** to open your application with the URL.
 
-    ![](../assets/patient-ui-web.png)
+    ![](../assets/check-upload-ui.png)
 
 Congrats! You've deployed a `Node.js` app to OpenShift Container Platform.
 
