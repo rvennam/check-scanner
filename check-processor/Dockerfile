@@ -23,6 +23,8 @@ RUN  apt-get update -qqy \
   && rm -rf /var/cache/apt/* /var/lib/apt/lists/*
 
 
+ENV TESSDATA_PREFIX /usr/src/app/
+
 RUN apt-get install -y python build-essential
 RUN apt update && apt install -y libsm6 libxext6
 RUN apt-get -y install tesseract-ocr
@@ -31,7 +33,9 @@ RUN tesseract --version
 WORKDIR /usr/src/app
 
 COPY *.js *.json *.md /usr/src/app/
+COPY mcr2.traineddata *.md /usr/src/app/
 COPY images /usr/src/app/images 
+RUN chmod a+rw -R /usr/src/app/images
 
 RUN npm install -d
 ENV LD_LIBRARY_PATH=/usr/src/app/node_modules/node-rdkafka/build/deps
