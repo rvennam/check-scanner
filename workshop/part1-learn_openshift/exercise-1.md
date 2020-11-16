@@ -40,7 +40,7 @@ In this exercise, you'll deploy a simple Node.js Express application - "Check Up
     **Application Name**: Remove all characters and leave the field empty.
     **Name**: `check-upload`
    
-   ![](../assets/ocp-app-name-short.png)
+   ![](../assets/ocp-app-name-short.png)_
    
 1. Click **Create** at the bottom of the window to build and deploy the application.
 
