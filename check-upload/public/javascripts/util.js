@@ -1,13 +1,13 @@
 var files = {};
 
 function getFiles() {
+    console.log("getFiles()");
     $.ajax({
         type: 'GET',
         url: '/files',
         success: function (data) {
-            console.log(data);
+            files = {}
             data.forEach((file) => {
-                console.log(file)
                 file.status = "awaiting";
                 if(file.Key.includes("::")){
                     file.routing = file.Key.split(":")[0];
@@ -31,11 +31,12 @@ function getFiles() {
 }
 
 function deleteFiles() {
+    console.log("deleteFiles()");
     $.ajax({
         type: 'DELETE',
         url: '/files',
         success: function (data) {
-            displayFiles();
+            setTimeout(getFiles, 2000);
         },
         error: function (e) {
             $('#result').text(e.responseText);
@@ -46,7 +47,6 @@ function deleteFiles() {
 function displayFiles() {
     $('#results').empty();
 
-    console.log(files);
     for (var fileName in files) {
         var icon;
         var tag;
@@ -98,7 +98,7 @@ $(document).ready(function () {
                 timeout: 60000,
                 success: function (data) {
                     $('#result').text(data.name + ' uploaded to Object Storage');
-                    getFiles();
+                    setTimeout(getFiles, 2000);
                     $('#btnSubmit').prop('disabled', false);
                 },
                 error: function (e) {
@@ -112,5 +112,13 @@ $(document).ready(function () {
 
 });
 
+
 getFiles();
-//setInterval(getFiles, 3000);
+var timesRun = 0;
+var interval = setInterval(function(){
+    timesRun += 1;
+    if(timesRun === 100){
+        clearInterval(interval);
+    }
+    getFiles();
+}, 3000); 
