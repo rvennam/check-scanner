@@ -1,4 +1,5 @@
 var Kafka = require('node-rdkafka');
+var fs = require('fs');
 
 var eventStreamsCredentials;
 
