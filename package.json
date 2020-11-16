@@ -2,12 +2,10 @@
   "name": "book",
   "version": "1.0.0",
   "description": "",
-  "scripts": {
-  },
+  "scripts": {},
   "author": "IBM",
   "license": "Apache-2.0",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "gitbook-cli": "2.3.2"
   }
