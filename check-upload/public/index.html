@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Message Hub Demo!</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="javascripts/util.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body>
+  <section class="section">
+
+    <div class="container">
+      <h1 class="title">
+        Check Scanner
+      </h1>
+      <p class="subtitle">Upload an image of a check. The image will be stored in Object Storage a message will be published to Event Streams to inform any listeners that a check is ready for processing.</p>
+
+      <div class="flexContainer">
+        <div class = "fileInput">
+          <p class="subtitle">Upload a check</p>
+          <form method="POST" encType="multipart/form-data" id="fileUploadForm">
+
+
+            <div class="field">
+              <label class="label">File</label>
+              <div class="file">
+                <label class="file-label">
+                  <input class="file-input" type="file" name="uploadedFile" id = "uploadedFile">
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label" id="fileLabel">
+                      Choose a file…
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="field is-grouped">
+              <div class="control">
+                <button class="button is-link" id="btnSubmit" >Submit</button>
+              </div>
+            </div>
+            <div class = "field">
+                <span id="result"></span>
+            </div>
+          </form>
+
+        </div>
+        <div class = "COSContents">
+          <p class="subtitle">Uploaded checks</p>
+          <div id = "results" class = "panel">
+            None
+          </div>
+          <div class="control">
+            <button class="button is-link" id="clearBucket" >Delete All</button>
+          </div>
+        </div>
+      </div>
+  </section>
+  </div>
+
+</body>
+
+</html>
