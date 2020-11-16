@@ -6,7 +6,7 @@ if (process.env.EVENTSTREAMS_CREDENTIALS) {
   console.log('Found Event Streams credentials in EVENTSTREAMS_CREDENTIALS env var')
   eventStreamsCredentials = JSON.parse(process.env.EVENTSTREAMS_CREDENTIALS);
 } else {
-  console.log('Missing env var EVENTSTREAMS_CREDENTIALS, using credentials.json');
+  console.log('Missing env var EVENTSTREAMS_CREDENTIALS, trying credentials.json');
   try {
     eventStreamsCredentials = require('./credentials.json').EVENTSTREAMS_CREDENTIALS
   }

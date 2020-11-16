@@ -8,7 +8,7 @@ if(process.env.OBJECTSTORAGE_CREDENTIALS) {
   console.log('Found Object Storage credentials in OBJECTSTORAGE_CREDENTIALS env var')
   cosCredentials = JSON.parse(process.env.OBJECTSTORAGE_CREDENTIALS);
 } else {
-  console.log('Missing env var OBJECTSTORAGE_CREDENTIALS, using credentials.json');
+  console.log('Missing env var OBJECTSTORAGE_CREDENTIALS, trying credentials.json');
   try {
     cosCredentials = require('./credentials.json').OBJECTSTORAGE_CREDENTIALS
    }

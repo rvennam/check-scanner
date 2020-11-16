@@ -5,12 +5,7 @@ var eventStreamsInstance = require('../eventstreams');
 var cosInstance = require('../objectStorage');
 var config = require('../config.js');
 
-var bucketName;
-if(process.env.COSBUCKETNAME) {
-  bucketName = process.env.COSBUCKETNAME;
-} else {
-  console.log('Missing env var COSBUCKETNAME');
- }
+var bucketName = process.env.COSBUCKETNAME || "check-images";
 
 /* GET files listing. */
 router.get('/', function (req, res, next) {

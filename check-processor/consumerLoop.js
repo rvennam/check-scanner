@@ -40,7 +40,7 @@ exports.buildConsumer = function (Kafka, consumer_opts, topicName, shutdown) {
 
     // COS
     var cosInstance = require('./objectStorage');
-    var bucketName = process.env.COSBUCKETNAME;
+    var bucketName = process.env.COSBUCKETNAME || "check-images"
     console.log("Bucket: " + bucketName);
 
     cosInstance.listObjects({
