@@ -48,7 +48,7 @@ In this exercise, you'll deploy a simple Node.js Express application - "Check Up
 
     Your application is being deployed.
 
-## View the Example Health
+## View the Check Upload app
 
 1. You should see the app you just deployed.
 
@@ -75,7 +75,11 @@ In this exercise, you'll deploy a simple Node.js Express application - "Check Up
 
 4. Once the build is complete, you should see the **Pod** will switch to **Running**. Click on **View logs**
 
-4. Click back to the **Topology** and select your app again. Click on the url under **Routes** to open your application with the URL.
+    ![Pod Logs 1](../assets/check-upload-pod-logs1.png)
+
+    Notice the lines `Event Streams credentials not found!` and `Object Storage credentials not found!`
+
+5. Click back to the **Topology** and select your app again. Click on the url under **Routes** to open your application with the URL.
 
     ![](../assets/check-upload-ui.png)
 
@@ -83,7 +87,7 @@ Congrats! You've deployed a `Node.js` app to OpenShift Container Platform.
 
 You've completed the first exercise! Let's recap -- in this exercise, you:
 
-* Deployed the "Example Health" Node.js application directly from GitHub into your cluster 
+* Deployed the "Check Upload" Node.js application directly from GitHub into your cluster 
   * Used the "Source to Image" strategy provided by OpenShift
 * Deployed an end-to-end development pipeline 
   * New commits that happen in GitHub can be pushed to your cluster with a simple \(re\)build
@@ -91,4 +95,4 @@ You've completed the first exercise! Let's recap -- in this exercise, you:
 
 ## What's Next?
 
-Let's dive into some Day 1 OpenShift Operations tasks, starting with Monitoring and Logging
+You created the application, but now you need to create the Object Storage and Event Streams services and configure your application to talk to them.

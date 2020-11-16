@@ -4,15 +4,13 @@
 
 ## Getting Started
 * [Create Account and Get Cluster](getting-started/get_started.md)
-* [Configure Shell Access](getting-started/setup_cli.md)
 
-## Learning OpenShift 4.3
+## Deploy Check Upload
 * [Deploying an App](part1-learn_openshift/exercise-1.md)
-* [Logging and Monitoring](part1-learn_openshift/exercise-2.md)
-* [Metrics and Dashboards](part1-learn_openshift/exercise-3.md)
-* [Scaling the App](part1-learn_openshift/exercise-4.md)
+* [Create Object Storage service](part1-learn_openshift/exercise-create-cos-service.md)
+* [Create Event Streams service](part1-learn_openshift/exercise-create-es-service.md)
 
-## OpenShift 4.3 and IBM Cloud
+## Deploy Check Processor
 * [Cloudant with OperatorHub](part2-openshift_ibmcloud/exercise-5.md)
 * [Configure Sysdig Agent](part2-openshift_ibmcloud/exercise-6.md)
 * [Configure LogDNA Agent](part2-openshift_ibmcloud/exercise-7.md)
