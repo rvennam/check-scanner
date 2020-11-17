@@ -1,0 +1,463 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Create Object Storage · Bring it all together on OpenShift 4.3 on IBM Cloud</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-tomorrow.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-collapsible-chapters/collapsible-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fancybox/jquery.fancybox.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fancybox/jquery.fancybox-buttons.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-web-header/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-codetabs/codetabs.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="exercise-deploy-processor.html" />
+    
+    
+    <link rel="prev" href="exercise-deploy-upload.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                        <b>1.1.</b>
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Getting Started</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../getting-started/get_started.html">
+            
+                <a href="../getting-started/get_started.html">
+            
+                    
+                        <b>2.1.</b>
+                    
+                    Create Account and Get Cluster
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Deploy the Check Scanner applications</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="exercise-deploy-upload.html">
+            
+                <a href="exercise-deploy-upload.html">
+            
+                    
+                        <b>3.1.</b>
+                    
+                    Deploy Check Upload
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="3.2" data-path="exercise-create-cos-service.html">
+            
+                <a href="exercise-create-cos-service.html">
+            
+                    
+                        <b>3.2.</b>
+                    
+                    Create Object Storage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="exercise-deploy-processor.html">
+            
+                <a href="exercise-deploy-processor.html">
+            
+                    
+                        <b>3.3.</b>
+                    
+                    Deploy Check Processor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="exercise-create-es-service.html">
+            
+                <a href="exercise-create-es-service.html">
+            
+                    
+                        <b>3.4.</b>
+                    
+                    Create Event Streams service
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Check the health</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="exercise-logging-monitoring.html">
+            
+                <a href="exercise-logging-monitoring.html">
+            
+                    
+                        <b>4.1.</b>
+                    
+                    Logging and Monitoring
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Create Object Storage</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="create-an-ibm-cloud-object-storage-service">Create an IBM Cloud Object Storage service</h2>
+<p>IBM Cloud Object Storage is encrypted and dispersed across multiple geographic locations, and accessed over HTTP using a REST API. It provides flexible, cost-effective, and scalable cloud storage for unstructured data. You will use this to store the files uploaded by the Check Upload application.</p>
+<ol>
+<li>In your <code>IBM Cloud</code> tab, click on <a href="https://cloud.ibm.com/catalog" target="_blank">Catalog</a>, create a <strong>Cloud Object Storage service</strong>,<ol>
+<li><strong>Plan</strong>: <strong>Standard</strong></li>
+<li><strong>Service name</strong>: <code>your-initials-cos</code>. For example: <code>rv-cos</code></li>
+<li>Select a resource group and click <strong>Create</strong></li>
+</ol>
+</li>
+<li>Under <strong>Buckets</strong>, click <strong>Create bucket</strong>.</li>
+<li>Create a <strong>Custom bucket</strong> -&gt; <strong>Customize your bucket</strong> <ol>
+<li><strong>Unique bucket name</strong> : <code>check-images</code></li>
+<li><strong>Resiliency</strong> : <strong>Cross Region</strong> </li>
+<li><strong>Location</strong> : <strong>us-geo</strong>  </li>
+<li>Scroll down and and click <strong>Create bucket</strong></li>
+</ol>
+</li>
+<li>Provide the service credentials to your application<ol>
+<li><strong>Service Credentials</strong> -&gt; <strong>New credential</strong> -&gt; <strong>Add</strong></li>
+<li>Expand <strong>Service credentials-1</strong> and then click on the Copy icon.
+     <a href="../assets/copy-cos-credential.png" rel="grouped" title="copy cos credential" target="_self" class="fancybox">
+       <img src="../assets/copy-cos-credential.png" alt="copy cos credential">
+     </a></li>
+</ol>
+</li>
+</ol>
+<p>You&apos;ve now created a Object Storage instance and have the credentials copied to your clipboard. Lets give these credentials to your application.</p>
+<ol>
+<li>In your OpenShift dashboard tab, click on <strong>Secrets</strong> </li>
+<li><strong>Create</strong> -&gt; <strong>Key/Value Secret</strong><ol>
+<li><strong>Secret Name</strong> : <code>cos-credentials</code></li>
+<li><strong>Key</strong> : <code>OBJECTSTORAGE_CREDENTIALS</code></li>
+<li><strong>Value</strong> : Press Cmd+V to paste from your clipboard. 
+     <a href="../assets/paste-cos-credential.png" rel="grouped" title="paste cos credential" target="_self" class="fancybox">
+       <img src="../assets/paste-cos-credential.png" alt="paste cos credential">
+     </a></li>
+<li><strong>Create</strong></li>
+<li><strong>Add Secret to Workload</strong> -&gt; <strong>Select a workload</strong> -&gt; <strong>check-upload</strong></li>
+<li><strong>Save</strong></li>
+</ol>
+</li>
+</ol>
+<p>Your application pod will restart with these new object storage credentials. Visit your application route again. You should now be able to upload images and have them be stored in Object Storage. </p>
+<p>Download this sample check image and upload it to the app.</p>
+<p>Right click and save this image to your computer:
+     <a href="../assets/sample-check.png" rel="grouped" title="sample check" target="_self" class="fancybox">
+       <img src="../assets/sample-check.png" alt="sample check">
+     </a></p>
+<p>Upload it to your Check Upload app.
+     <a href="../assets/check-upload-check1.png" rel="grouped" title="check-upload-check1" target="_self" class="fancybox">
+       <img src="../assets/check-upload-check1.png" alt="check-upload-check1">
+     </a></p>
+<p>Notice that the checks are stuck in &quot;awaiting&quot; status. We haven&apos;t deployed our Check Processor application yet. Let&apos;s do that next.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="exercise-deploy-upload.html" class="navigation navigation-prev " aria-label="Previous page: Deploy Check Upload">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="exercise-deploy-processor.html" class="navigation navigation-next " aria-label="Next page: Deploy Check Processor">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Create Object Storage","level":"3.2","depth":1,"next":{"title":"Deploy Check Processor","level":"3.3","depth":1,"path":"part1-learn_openshift/exercise-deploy-processor.md","ref":"part1-learn_openshift/exercise-deploy-processor.md","articles":[]},"previous":{"title":"Deploy Check Upload","level":"3.1","depth":1,"path":"part1-learn_openshift/exercise-deploy-upload.md","ref":"part1-learn_openshift/exercise-deploy-upload.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Bring it all together on OpenShift 4.3 on IBM Cloud"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Bring it all together on OpenShift 4.3 on IBM Cloud","gitbook":"3.2.3"},"file":{"path":"part1-learn_openshift/exercise-create-cos-service.md","mtime":"2020-11-17T03:08:52.360Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-17T03:10:46.716Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-collapsible-chapters/collapsible-chapters.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fancybox/jquery.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fancybox/jquery.mousewheel.pack.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fancybox/jquery.fancybox.pack.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fancybox/jquery.fancybox-buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fancybox/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-web-header/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-codetabs/codetabs.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
