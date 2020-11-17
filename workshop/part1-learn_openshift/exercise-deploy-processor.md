@@ -1,4 +1,4 @@
-## Deploy Check Processor application
+## Deploy the Check Processor application
 
 1. Confirm you're in the **Developer** view. Make sure your `check-scanner` project is selected and click **+Add**
 

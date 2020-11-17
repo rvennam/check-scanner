@@ -4,7 +4,7 @@ IBM Cloud Event Streams is a fast, scalable, fully managed messaging service, ba
 
 1. In your `IBM Cloud` tab, click on [Catalog](https://cloud.ibm.com/catalog), create a **Cloud Object Storage service**,
    1. **Plan**: **Lite**
-   2. **Service name**: `your-initials-es`. For example: `rv-es`
+   2. **Service name**: `<your-initials>-es`. For example: `rv-es`
    3. Select a resource group and click **Create**
 2. Under **Manage**, switch to **Topics** tab.
    1. Click on **Create topic** and provide `work-topic` as the Topic name. Click **Next**
@@ -21,7 +21,7 @@ You've now created a Event Streams instance and have the credentials copied to y
 2. **Create** -> **Key/Value Secret**
    1. **Secret Name** : `es-credentials`
    2. **Key** : `EVENTSTREAMS_CREDENTIALS`
-   3. **Value** : Press Cmd+V to paste from your clipboard. 
+   3. **Value** : Press Cmd+V(mac)/Ctrl-V(Windows) to paste from your clipboard. 
    ![paste cos credential](../assets/paste-es-credential.png)
    4. **Create**
    5. **Add Secret to Workload** -> **Select a workload** -> **check-processor** -> **Save**

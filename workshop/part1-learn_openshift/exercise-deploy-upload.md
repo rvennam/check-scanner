@@ -1,4 +1,4 @@
-# Deploying an application
+# Deploying the Check Upload application
 
 In this exercise, you'll deploy the first application - Check Upload. Check Upload is a simple UI for uploading images of checks. You can find the sample application GitHub repository here: [https://github.com/rvennam/check-scanner](https://github.com/rvennam/check-scanner)
 
@@ -10,7 +10,7 @@ In OpenShift Container Platform, projects are used to group and isolate related 
 
     ![](../assets/ocp-projects.png)
 
-2. Create a new project by selecting **Create Project**. Call the project "check-scanner".
+2. Create a new project by selecting **Create Project**. Name the project `check-scanner`.
 
     ![](../assets/ocp-create-project.png)
 

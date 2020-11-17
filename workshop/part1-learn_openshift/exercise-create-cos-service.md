@@ -4,7 +4,7 @@ IBM Cloud Object Storage is encrypted and dispersed across multiple geographic l
 
 1. In your `IBM Cloud` tab, click on [Catalog](https://cloud.ibm.com/catalog), create a **Cloud Object Storage service**,
    1. **Plan**: **Standard**
-   2. **Service name**: `your-initials-cos`. For example: `rv-cos`
+   2. **Service name**: `<your-initials>-cos`. For example: `rv-cos`
    3. Select a resource group and click **Create**
 2. Under **Buckets**, click **Create bucket**.
 3. Create a **Custom bucket** -> **Customize your bucket** 
@@ -23,7 +23,7 @@ You've now created a Object Storage instance and have the credentials copied to 
 2. **Create** -> **Key/Value Secret**
    1. **Secret Name** : `cos-credentials`
    2. **Key** : `OBJECTSTORAGE_CREDENTIALS`
-   3. **Value** : Press Cmd+V to paste from your clipboard. 
+   3. **Value** : Press Cmd+V(Mac)/Ctrl-V(Windows) to paste from your clipboard. 
    ![paste cos credential](../assets/paste-cos-credential.png)
    4. **Create**
    5. **Add Secret to Workload** -> **Select a workload** -> **check-upload**
@@ -31,9 +31,7 @@ You've now created a Object Storage instance and have the credentials copied to 
 
 Your application pod will restart with these new object storage credentials. Visit your application route again. You should now be able to upload images and have them be stored in Object Storage. 
 
-Download this sample check image and upload it to the app.
-
-Right click and save this image to your computer:
+Download this sample check image and upload it to the app. Right click and save this image to your computer:
 ![sample check](../assets/sample-check.png)
 
 Upload it to your Check Upload app.

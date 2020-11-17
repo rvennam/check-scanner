@@ -1,9 +1,14 @@
-# Asynchronous data processing using object storage and pub/sub messaging
+# Check processing using OpenShift, Object Storage and Event Streams
 
-This sample application uses an Apache Kafka based messaging service to orchestrate long running workloads to applications running in a Kubernetes cluster. This pattern is used to decouple your application allowing greater control over scaling and performance. Event Streams can be used to queue up the work to be done without impacting the producer applications, making it an ideal system for long-running tasks.
+This sample application uses an Apache Kafka based messaging service to orchestrate long running workloads to applications. This pattern is used to decouple your application allowing greater control over scaling and performance. Event Streams can be used to queue up the work to be done without impacting the producer applications, making it an ideal system for long-running tasks.
 
-Refer to [this tutorial](https://cloud.ibm.com/docs/solution-tutorials?topic=solution-tutorials-pub-sub-object-storage) for instructions.
+You will simulate this pattern using a check processing example. First you will create a UI application which will be used to upload checks to Object Storage and generate messages indicating work to be done. Next, you will create a separate worker application which will asynchronously process the user uploaded checks when it receives messages.
 
-## License
 
-See [License.txt](License.txt) for license information.
+![](./Architecture.png)
+
+1. The user uploads an image of a check using the **Check Upload** UI application
+2. File is saved in IBM Cloud Object Storage
+3. Message is sent to IBM Cloud Event Streams topic indicating the new file is awaiting processing.
+4. When ready, **Check Processor** application receives the message and begins processing the new image.
+5. When complete, it updates the image in IBM Cloud Object Storage.
