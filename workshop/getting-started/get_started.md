@@ -1,6 +1,6 @@
 # Access the OpenShift web console
 
-1. In the [IBM Cloud Dashboard](https://cloud.ibm.com), click on **Clusters** in the **Resource Summary** tile.
+1. In the [IBM Cloud Dashboard](https://cloud.ibm.com), switch to the Lab account and click on **Clusters** in the **Resource Summary** tile.
 
     ![Find the Resource Summary tile](../assets/dashboard.png)
 
