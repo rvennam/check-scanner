@@ -37,3 +37,5 @@ Both of your applications will restart with the new sets of credentials.
 Visit your Check Upload application and upload the sample image again. This time, you will see that the check getting processed in a few seconds. 
 
 ![](../assets/check-scanner-ui.png)
+
+Congrats! You've deployed both applications and configured them with the Event Stream and Object Storage services!

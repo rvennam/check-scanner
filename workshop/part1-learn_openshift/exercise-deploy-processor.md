@@ -8,19 +8,17 @@
 
 3. Enter the repository `https://github.com/rvennam/check-scanner` in the Git Repo URL field.
 
-    ![](../assets/ocp-configure-git.png)
-
 4. Expand **Show Advanced Git Options** and under **Context Dir** enter `/check-processor`
+
+    ![](../assets/import-check-scanner.png)
 
 5. Under **General**
     - **Application Name**: Remove all characters and leave the field empty.
     - **Name**: `check-processor`
-   
-   ![](../assets/check-upload-name.png)
 
 6. Uncheck **Create a route to the application**. This application does not have a UI.
    
-1. Click **Create** at the bottom of the window to build and deploy the application.
+7. Click **Create** at the bottom of the window to build and deploy the application.
 
 Your application is being deployed.
 
