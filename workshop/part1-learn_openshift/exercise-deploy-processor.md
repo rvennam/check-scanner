@@ -31,4 +31,10 @@ Let's share the credentials of the Object Storage service to this application to
 2. Click on **cos-credentials**
 3. **Add Secret to Workload** -> **Select a workload** -> **check-processor** -> **Save**
 
+Bind the bucket name secret as well:
+
+1. Click on **Secrets** 
+2. Click on **cos-bucketname**
+3. **Add Secret to Workload** -> **Select a workload** -> **check-processor** -> **Save**
+
 Check Processor app is now able retrieve images from Object Storage. However, we still need a message bus to tell the app when a new image is ready. Let's make that next.
