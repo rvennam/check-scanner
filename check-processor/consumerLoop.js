@@ -102,8 +102,9 @@ exports.buildConsumer = function (Kafka, consumer_opts, topicName, shutdown) {
             } else {
                 for (var i = 0; i < consumedMessages.length; i++) {
                     var m = consumedMessages[i];
-                    console.log('Message consumed: topic=' + m.topic + ', partition=' + m.partition + ', offset=' + m.offset + ', key=' + m.key + ', value=' + m.value.toString());
+                    console.log('Received a new message: topic=' + m.topic + ', partition=' + m.partition + ', offset=' + m.offset + ', key=' + m.key + ', value=' + m.value.toString());
                     var fileName = m.value.toString();
+                    console.log(newFileName + ' downloaded to Object Storage');
                     cosInstance.getObject({
                         Bucket: bucketName,
                         Key: fileName
@@ -129,7 +130,9 @@ exports.buildConsumer = function (Kafka, consumer_opts, topicName, shutdown) {
                                     try {
                                         var split = text.match("\\[[0-9]{8}.*")[0].replace(/@/g, '').replace(/\[/g, '').split(' ')
                                         newFileName = `${split[0]}:${split[1]}::${fileName}`;
-                                        console.log("new file: " + newFileName);
+                                        console.log("Extracted Routing Number: " + split[0])
+                                        console.log("Extracted Account Number: " + split[0])
+                                        console.log("New File Name: " + newFileName);
                                     }
                                     catch(err) {
                                       console.log("Unable to process check");
@@ -139,7 +142,7 @@ exports.buildConsumer = function (Kafka, consumer_opts, topicName, shutdown) {
                                         .putObject({ Bucket: bucketName, Body: data.Body, Key: newFileName })
                                         .promise()
                                         .then(() => {
-                                            console.log(fileName + ' uploaded to Object Storage');
+                                            console.log(newFileName + ' uploaded to Object Storage');
                                         })
                                         .catch((error) => {
                                             console.log(error);
