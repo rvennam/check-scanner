@@ -40,12 +40,22 @@ exports.buildConsumer = function (Kafka, consumer_opts, topicName, shutdown) {
 
     // COS
     var cosInstance = require('./objectStorage');
-    var bucketName = process.env.COSBUCKETNAME || "check-images"
-    console.log("Bucket: " + bucketName);
-
-    cosInstance.listObjects({
-        Bucket: bucketName
-    }, (err, data) => err ? console.log(err) : console.log(data));
+    var bucketName = process.env.COSBUCKETNAME;;
+    // Bucket name not set..just use the first available bucket
+    if(!process.env.COSBUCKETNAME && cosInstance){
+      cosInstance.listBuckets(function(err, data) {
+        if (err) {
+          console.log("Unable to find a bucket.", err);
+        } else {
+          if(data.Buckets.length >0){
+            bucketName = data.Buckets[0].Name;
+            console.log("COSBUCKETNAME env var not set, but found a bucket: " +  bucketName);
+          }
+        }
+      });
+    }
+    
+    console.log("Bucket : " + bucketName);
 
     //tesseract
 

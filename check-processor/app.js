@@ -18,9 +18,11 @@
  * © Copyright IBM Corp. 2015-2018
  */
 var Kafka = require('node-rdkafka');
+require('dotenv').config({path: '../.env'});
 var ProducerLoop = require('./producerLoop.js');
 var ConsumerLoop = require('./consumerLoop.js');
 var fs = require('fs');
+
 
 var opts = {};
 var topicName = 'work-topic';

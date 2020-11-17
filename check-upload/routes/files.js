@@ -5,7 +5,22 @@ var eventStreamsInstance = require('../eventstreams');
 var cosInstance = require('../objectStorage');
 var config = require('../config.js');
 
-var bucketName = process.env.COSBUCKETNAME || "check-images";
+var bucketName = process.env.COSBUCKETNAME;;
+// Bucket name not set..just use the first available bucket
+if(!process.env.COSBUCKETNAME && cosInstance){
+  cosInstance.listBuckets(function(err, data) {
+    if (err) {
+      console.log("Unable to find a bucket.", err);
+    } else {
+      if(data.Buckets.length >0){
+        bucketName = data.Buckets[0].Name;
+        console.log("COSBUCKETNAME env var not set, but found a bucket: " +  bucketName);
+      }
+    }
+  });
+}
+
+console.log("Bucket : " + bucketName)
 
 /* GET files listing. */
 router.get('/', function (req, res, next) {
