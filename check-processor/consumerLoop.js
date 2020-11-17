@@ -125,12 +125,16 @@ exports.buildConsumer = function (Kafka, consumer_opts, topicName, shutdown) {
                                           console.error("Error deleting temp file: " + fileName)
                                         }
                                     })
-                                    var split = text.match("\\[[0-9]{8}.*")[0].replace(/@/g, '').replace(/\[/g, '').split(' ')
-                                    var newFileName = `${split[0]}:${split[1]}::${fileName}`;
-                                    console.log(split[0]);
-                                    console.log(split[1]);
-                                    console.log("new file: " + newFileName);
-
+                                    var newFileName;
+                                    try {
+                                        var split = text.match("\\[[0-9]{8}.*")[0].replace(/@/g, '').replace(/\[/g, '').split(' ')
+                                        newFileName = `${split[0]}:${split[1]}::${fileName}`;
+                                        console.log("new file: " + newFileName);
+                                    }
+                                    catch(err) {
+                                      console.log("Unable to process check");
+                                      newFileName = `unknown:unknown::${fileName}`;
+                                    }
                                     cosInstance
                                         .putObject({ Bucket: bucketName, Body: data.Body, Key: newFileName })
                                         .promise()
