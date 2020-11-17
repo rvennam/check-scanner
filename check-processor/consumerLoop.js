@@ -104,7 +104,7 @@ exports.buildConsumer = function (Kafka, consumer_opts, topicName, shutdown) {
                     var m = consumedMessages[i];
                     console.log('Received a new message: topic=' + m.topic + ', partition=' + m.partition + ', offset=' + m.offset + ', key=' + m.key + ', value=' + m.value.toString());
                     var fileName = m.value.toString();
-                    console.log(newFileName + ' downloaded to Object Storage');
+                    console.log(fileName + ' downloaded to Object Storage');
                     cosInstance.getObject({
                         Bucket: bucketName,
                         Key: fileName
