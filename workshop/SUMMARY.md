@@ -10,3 +10,6 @@
 * [Create Object Storage](part1-learn_openshift/exercise-create-cos-service.md)
 * [Deploy Check Processor](part1-learn_openshift/exercise-deploy-processor.md)
 * [Create Event Streams service](part1-learn_openshift/exercise-create-es-service.md)
+
+## Check the health
+* [Logging and Monitoring](part1-learn_openshift/exercise-logging-monitoring.md)
