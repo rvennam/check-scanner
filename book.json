@@ -15,7 +15,7 @@
         ]
       },
       "webheader": {
-        "headerTitle" : ""IBM Cloud Lab using OpenShift, Event Streams and Object Storage"
+        "headerTitle" : "IBM Cloud Lab using OpenShift, Event Streams and Object Storage"
       }
     },
     "plugins": [
