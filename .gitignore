@@ -8,3 +8,4 @@ pubsub-worker/native/*
 pubsub-worker/.ibm-project
 .env
 node_modules
+_book
