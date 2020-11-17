@@ -30,7 +30,7 @@ Bind the secret to Check Upload app as well:
 
 1. Click on **Secrets** 
 2. Click on **es-credentials**
-3. **Add Secret to Workload** -> **Select a workload** -> **check-processor** -> **Save**
+3. **Add Secret to Workload** -> **Select a workload** -> **check-upload** -> **Save**
 
 Both of your applications will restart with the new sets of credentials. 
 

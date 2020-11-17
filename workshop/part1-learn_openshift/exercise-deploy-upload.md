@@ -1,24 +1,19 @@
 # Deploying an application
 
-In this exercise, you'll deploy a simple Node.js Express application - "Check Upload". Check Upload is a simple UI for uploading images of checks. We'll use this example to demonstrate key OpenShift features throughout this workshop. You can find the sample application GitHub repository here: [https://github.com/rvennam/check-scanner](https://github.com/rvennam/check-scanner)
+In this exercise, you'll deploy the first application - Check Upload. Check Upload is a simple UI for uploading images of checks. You can find the sample application GitHub repository here: [https://github.com/rvennam/check-scanner](https://github.com/rvennam/check-scanner)
 
 ## Create Check Scanner project
 
-1. Launch the `OpenShift web console`.
-
-    ![](../assets/ocp-console.png)
+In OpenShift Container Platform, projects are used to group and isolate related objects. As an administrator, you can give developers access to certain projects, allow them to create their own, and give them administrative rights within individual projects.
 
 1. Select the **Projects** view to display all the projects.
 
     ![](../assets/ocp-projects.png)
 
-1. Create a new project by selecting **Create Project**. Call the project "check-scanner".
+2. Create a new project by selecting **Create Project**. Call the project "check-scanner".
 
     ![](../assets/ocp-create-project.png)
 
-1. You should see a view that looks like this.
-
-    ![](../assets/ocp-admin-project.png)
 
 ## Deploy Check Upload application
 
@@ -30,31 +25,25 @@ In this exercise, you'll deploy a simple Node.js Express application - "Check Up
 
 1. Enter the repository `https://github.com/rvennam/check-scanner` in the Git Repo URL field.
 
-    ![](../assets/ocp-configure-git.png)
-
 1. Expand **Show Advanced Git Options** and under **Context Dir** enter `/check-ui`
 
-1. Under **Builder**, select **Node.js**
+    ![](../assets/ocp-configure-git.png)
 
-1 Under **General**
-    **Application Name**: Remove all characters and leave the field empty.
-    **Name**: `check-upload`
+1. Under **Builder**, select **Node.js**
    
-   ![](../assets/ocp-app-name-short.png)_
+2. **Application Name**: Remove all characters and leave the field empty.
    
-1. Click **Create** at the bottom of the window to build and deploy the application.
+3. **Name**: `check-upload`
 
     ![](../assets/check-upload-name.png)
+   
+4. Click **Create** at the bottom of the window to build and deploy the application.
 
-    Your application is being deployed.
+Your app is now being built and deployed. OpenShift will retrieve the source code from GitHub, build a container image, push the image to the image registry, and then run a container in a pod.
 
 ## View the Check Upload app
 
-1. You should see the app you just deployed.
-
-    ![](../assets/ocp-topology-app.png)
-
-2. Select the app and check on **Resources**. You should see your Pods, Builds, Services and Routes.
+1. Select the app and check on **Resources**. You should see your Pods, Builds, Services and Routes.
 
     ![](../assets/ocp-topo-app-details.png)
 
@@ -63,9 +52,7 @@ In this exercise, you'll deploy a simple Node.js Express application - "Check Up
     * **Services**: Tells OpenShift how to access your Pods by grouping them together as a service and defining the port to listen to
     * **Routes**: Exposes your services to the outside world using the LoadBalancer provided by the IBM Cloud network
 
-3. The build can take a few minutes. Click on **View Logs** next to your Build. This shows you the process that OpenShift took to install the dependencies for your Node.js application and build/push a Docker image.
-
-    ![Build Logs](../assets/ocp43-build-logs.png)
+2. The build can take a few minutes. Click on **View Logs** next to your Build. This shows you the process that OpenShift took to install the dependencies for your Node.js application and build/push a Docker image.
 
     You should see that looks like this:
     ```
@@ -73,13 +60,13 @@ In this exercise, you'll deploy a simple Node.js Express application - "Check Up
     Push successful
     ```
 
-4. Once the build is complete, you should see the **Pod** will switch to **Running**. Click on **View logs**
+3. Once the build is complete, you should see the **Pod** will switch to **Running**. Click on **View logs**
 
     ![Pod Logs 1](../assets/check-upload-pod-logs1.png)
 
     Notice the lines `Event Streams credentials not found!` and `Object Storage credentials not found!`
 
-5. Click back to the **Topology** and select your app again. Click on the url under **Routes** to open your application with the URL.
+4. Click back to the **Topology** and select your app again. Click on the url under **Routes** to open your application with the URL.
 
     ![](../assets/check-upload-ui.png)
 

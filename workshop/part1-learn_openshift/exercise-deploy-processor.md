@@ -12,21 +12,20 @@
 
 4. Expand **Show Advanced Git Options** and under **Context Dir** enter `/check-processor`
 
-1 Under **General**
-    **Application Name**: Remove all characters and leave the field empty.
-    **Name**: `check-processor`
+5. Under **General**
+    - **Application Name**: Remove all characters and leave the field empty.
+    - **Name**: `check-processor`
    
-   ![](../assets/create-from-dockerfile.png)
+   ![](../assets/check-upload-name.png)
 
-1 Uncheck **Create a route to the application**. This application does not have a UI.
+6. Uncheck **Create a route to the application**. This application does not have a UI.
    
 1. Click **Create** at the bottom of the window to build and deploy the application.
 
-    ![](../assets/check-upload-name.png)
-
-    Your application is being deployed.
+Your application is being deployed.
 
 ## Bind Object Storage credentials to Check Processor
+Let's share the credentials of the Object Storage service to this application too. We already created a secret with the credentials. We now just need to bind that secret to this application as well.
 
 1. In your OpenShift dashboard tab, click on **Secrets** 
 2. Click on **cos-credentials**
