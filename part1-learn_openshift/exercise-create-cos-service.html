@@ -293,10 +293,13 @@
 </li>
 <li>Under <strong>Buckets</strong>, click <strong>Create bucket</strong>.</li>
 <li>Create a <strong>Custom bucket</strong> -&gt; <strong>Customize your bucket</strong> <ol>
-<li><strong>Unique bucket name</strong> : <code>check-images</code></li>
+<li><strong>Unique bucket name</strong> : <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>your-initials</span><span class="token punctuation">&gt;</span></span>-check-images</code> . For example: <code>rv-check-images</code></li>
 <li><strong>Resiliency</strong> : <strong>Cross Region</strong> </li>
 <li><strong>Location</strong> : <strong>us-geo</strong>  </li>
-<li>Scroll down and and click <strong>Create bucket</strong></li>
+<li>Scroll down and and click <strong>Create bucket</strong>
+     <a href="../assets/cos-bucket-create.png" rel="grouped" title="" target="_self" class="fancybox">
+       <img src="../assets/cos-bucket-create.png" alt="">
+     </a></li>
 </ol>
 </li>
 <li>Provide the service credentials to your application<ol>
@@ -317,6 +320,22 @@
 <li><strong>Value</strong> : Press Cmd+V(Mac)/Ctrl-V(Windows) to paste from your clipboard. 
      <a href="../assets/paste-cos-credential.png" rel="grouped" title="paste cos credential" target="_self" class="fancybox">
        <img src="../assets/paste-cos-credential.png" alt="paste cos credential">
+     </a></li>
+<li><strong>Create</strong></li>
+<li><strong>Add Secret to Workload</strong> -&gt; <strong>Select a workload</strong> -&gt; <strong>check-upload</strong></li>
+<li><strong>Save</strong></li>
+</ol>
+</li>
+</ol>
+<p>Create another secret for the bucket name:</p>
+<ol>
+<li>Click on <strong>Secrets</strong> </li>
+<li><strong>Create</strong> -&gt; <strong>Key/Value Secret</strong><ol>
+<li><strong>Secret Name</strong> : <code>cos-bucketname</code></li>
+<li><strong>Key</strong> : <code>COSBUCKETNAME</code></li>
+<li><strong>Value</strong> : Enter the value you set for the bucket name above
+     <a href="../assets/paste-cos-bucket.png" rel="grouped" title="paste cos credential" target="_self" class="fancybox">
+       <img src="../assets/paste-cos-bucket.png" alt="paste cos credential">
      </a></li>
 <li><strong>Create</strong></li>
 <li><strong>Add Secret to Workload</strong> -&gt; <strong>Select a workload</strong> -&gt; <strong>check-upload</strong></li>
@@ -377,7 +396,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Create Object Storage","level":"1.4","depth":1,"next":{"title":"Deploy Check Processor","level":"1.5","depth":1,"path":"part1-learn_openshift/exercise-deploy-processor.md","ref":"part1-learn_openshift/exercise-deploy-processor.md","articles":[]},"previous":{"title":"Deploy Check Upload","level":"1.3","depth":1,"path":"part1-learn_openshift/exercise-deploy-upload.md","ref":"part1-learn_openshift/exercise-deploy-upload.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Bring it all together on OpenShift 4.3 on IBM Cloud"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Bring it all together on OpenShift 4.3 on IBM Cloud","gitbook":"3.2.3"},"file":{"path":"part1-learn_openshift/exercise-create-cos-service.md","mtime":"2020-11-17T03:44:30.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-17T03:46:13.569Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Create Object Storage","level":"1.4","depth":1,"next":{"title":"Deploy Check Processor","level":"1.5","depth":1,"path":"part1-learn_openshift/exercise-deploy-processor.md","ref":"part1-learn_openshift/exercise-deploy-processor.md","articles":[]},"previous":{"title":"Deploy Check Upload","level":"1.3","depth":1,"path":"part1-learn_openshift/exercise-deploy-upload.md","ref":"part1-learn_openshift/exercise-deploy-upload.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Bring it all together on OpenShift 4.3 on IBM Cloud"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Bring it all together on OpenShift 4.3 on IBM Cloud","gitbook":"3.2.3"},"file":{"path":"part1-learn_openshift/exercise-create-cos-service.md","mtime":"2020-11-17T04:10:32.097Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-17T04:12:22.560Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
