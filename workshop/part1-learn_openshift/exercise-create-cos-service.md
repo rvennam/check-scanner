@@ -30,7 +30,7 @@ You've now created a Object Storage instance and have the credentials copied to 
    5. **Add Secret to Workload** -> **Select a workload** -> **check-upload**
    6. **Save**
    
-Create another secret for the bucket name:
+<!-- Create another secret for the bucket name:
 
 1. Click on **Secrets** 
 2. **Create** -> **Key/Value Secret**
@@ -40,7 +40,7 @@ Create another secret for the bucket name:
    ![paste cos credential](../assets/paste-cos-bucket.png)
    1. **Create**
    2. **Add Secret to Workload** -> **Select a workload** -> **check-upload**
-   3. **Save**
+   3. **Save** -->
    
 Your application pod will restart with these new object storage credentials. Visit your application route again. You should now be able to upload images and have them be stored in Object Storage. 
 
