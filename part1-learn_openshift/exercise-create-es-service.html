@@ -132,19 +132,12 @@
             
         </li>
     
-
-    
-        
-        <li class="header">Getting Started</li>
-        
-        
-    
-        <li class="chapter " data-level="2.1" data-path="../getting-started/get_started.html">
+        <li class="chapter " data-level="1.2" data-path="../getting-started/get_started.html">
             
                 <a href="../getting-started/get_started.html">
             
                     
-                        <b>2.1.</b>
+                        <b>1.2.</b>
                     
                     Create Account and Get Cluster
             
@@ -154,19 +147,12 @@
             
         </li>
     
-
-    
-        
-        <li class="header">Deploy the Check Scanner applications</li>
-        
-        
-    
-        <li class="chapter " data-level="3.1" data-path="exercise-deploy-upload.html">
+        <li class="chapter " data-level="1.3" data-path="exercise-deploy-upload.html">
             
                 <a href="exercise-deploy-upload.html">
             
                     
-                        <b>3.1.</b>
+                        <b>1.3.</b>
                     
                     Deploy Check Upload
             
@@ -176,12 +162,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.2" data-path="exercise-create-cos-service.html">
+        <li class="chapter " data-level="1.4" data-path="exercise-create-cos-service.html">
             
                 <a href="exercise-create-cos-service.html">
             
                     
-                        <b>3.2.</b>
+                        <b>1.4.</b>
                     
                     Create Object Storage
             
@@ -191,12 +177,12 @@
             
         </li>
     
-        <li class="chapter " data-level="3.3" data-path="exercise-deploy-processor.html">
+        <li class="chapter " data-level="1.5" data-path="exercise-deploy-processor.html">
             
                 <a href="exercise-deploy-processor.html">
             
                     
-                        <b>3.3.</b>
+                        <b>1.5.</b>
                     
                     Deploy Check Processor
             
@@ -206,12 +192,12 @@
             
         </li>
     
-        <li class="chapter active" data-level="3.4" data-path="exercise-create-es-service.html">
+        <li class="chapter active" data-level="1.6" data-path="exercise-create-es-service.html">
             
                 <a href="exercise-create-es-service.html">
             
                     
-                        <b>3.4.</b>
+                        <b>1.6.</b>
                     
                     Create Event Streams service
             
@@ -221,21 +207,29 @@
             
         </li>
     
-
-    
-        
-        <li class="header">Check the health</li>
-        
-        
-    
-        <li class="chapter " data-level="4.1" data-path="exercise-logging-monitoring.html">
+        <li class="chapter " data-level="1.7" data-path="exercise-logging-monitoring.html">
             
                 <a href="exercise-logging-monitoring.html">
             
                     
-                        <b>4.1.</b>
+                        <b>1.7.</b>
                     
                     Logging and Monitoring
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="conclusion.html">
+            
+                <a href="conclusion.html">
+            
+                    
+                        <b>1.8.</b>
+                    
+                    Conclusion
             
                 </a>
             
@@ -293,7 +287,7 @@
 <ol>
 <li>In your <code>IBM Cloud</code> tab, click on <a href="https://cloud.ibm.com/catalog" target="_blank">Catalog</a>, create a <strong>Cloud Object Storage service</strong>,<ol>
 <li><strong>Plan</strong>: <strong>Lite</strong></li>
-<li><strong>Service name</strong>: <code>your-initials-es</code>. For example: <code>rv-es</code></li>
+<li><strong>Service name</strong>: <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>your-initials</span><span class="token punctuation">&gt;</span></span>-es</code>. For example: <code>rv-es</code></li>
 <li>Select a resource group and click <strong>Create</strong></li>
 </ol>
 </li>
@@ -318,7 +312,7 @@
 <li><strong>Create</strong> -&gt; <strong>Key/Value Secret</strong><ol>
 <li><strong>Secret Name</strong> : <code>es-credentials</code></li>
 <li><strong>Key</strong> : <code>EVENTSTREAMS_CREDENTIALS</code></li>
-<li><strong>Value</strong> : Press Cmd+V to paste from your clipboard. 
+<li><strong>Value</strong> : Press Cmd+V(mac)/Ctrl-V(Windows) to paste from your clipboard. 
      <a href="../assets/paste-es-credential.png" rel="grouped" title="paste cos credential" target="_self" class="fancybox">
        <img src="../assets/paste-es-credential.png" alt="paste cos credential">
      </a></li>
@@ -381,7 +375,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Create Event Streams service","level":"3.4","depth":1,"next":{"title":"Logging and Monitoring","level":"4.1","depth":1,"path":"part1-learn_openshift/exercise-logging-monitoring.md","ref":"part1-learn_openshift/exercise-logging-monitoring.md","articles":[]},"previous":{"title":"Deploy Check Processor","level":"3.3","depth":1,"path":"part1-learn_openshift/exercise-deploy-processor.md","ref":"part1-learn_openshift/exercise-deploy-processor.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Bring it all together on OpenShift 4.3 on IBM Cloud"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Bring it all together on OpenShift 4.3 on IBM Cloud","gitbook":"3.2.3"},"file":{"path":"part1-learn_openshift/exercise-create-es-service.md","mtime":"2020-11-17T03:08:52.360Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-17T03:10:46.716Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Create Event Streams service","level":"1.6","depth":1,"next":{"title":"Logging and Monitoring","level":"1.7","depth":1,"path":"part1-learn_openshift/exercise-logging-monitoring.md","ref":"part1-learn_openshift/exercise-logging-monitoring.md","articles":[]},"previous":{"title":"Deploy Check Processor","level":"1.5","depth":1,"path":"part1-learn_openshift/exercise-deploy-processor.md","ref":"part1-learn_openshift/exercise-deploy-processor.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"Bring it all together on OpenShift 4.3 on IBM Cloud"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Bring it all together on OpenShift 4.3 on IBM Cloud","gitbook":"3.2.3"},"file":{"path":"part1-learn_openshift/exercise-create-es-service.md","mtime":"2020-11-17T03:44:30.068Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-17T03:46:13.569Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
