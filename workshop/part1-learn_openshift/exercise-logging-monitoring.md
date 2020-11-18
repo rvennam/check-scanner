@@ -22,7 +22,7 @@ One of the great things about Kubernetes is the ability to quickly debug your ap
 
 2. Switch to the **Terminal** tab
 
-   ![Terminal](../assets/ocp43-terminal.png)
+   ![Terminal](../assets/terminal.png)
 
 3. Run the following Shell commands:
 
@@ -30,7 +30,6 @@ One of the great things about Kubernetes is the ability to quickly debug your ap
 | :--- | :--- |
 | ls | List the project files. |
 | ps aux | List the running processes. |
-| cat /etc/redhat-release | Show the underlying OS. |
 
 ## OpenShift Monitoring
 

@@ -25,7 +25,7 @@ In OpenShift Container Platform, projects are used to group and isolate related 
 
 1. Enter the repository `https://github.com/rvennam/check-scanner` in the Git Repo URL field.
 
-1. Expand **Show Advanced Git Options** and under **Context Dir** enter `/check-ui`
+1. Expand **Show Advanced Git Options** and under **Context Dir** enter `/check-upload`
 
     ![](../assets/ocp-configure-git.png)
 
