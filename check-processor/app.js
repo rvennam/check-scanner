@@ -150,35 +150,35 @@ for (var key in driver_options) {
 // Use the AdminClient API to create the topic
 // with 1 partition and a retention period of 24 hours.
 console.log('Creating the topic ' + topicName + ' with AdminClient');
-//admin = Kafka.AdminClient.create(admin_opts);
-//admin.connect();
+admin = Kafka.AdminClient.create(admin_opts);
+admin.connect();
 console.log("AdminClient connected");
 
-// admin.createTopic({
-//     topic: topicName,
-//     num_partitions: 1,
-//     replication_factor: 3,
-//     config: { 'retention.ms': (24 * 60 * 60 * 1000).toString() }
-// },
-//     function (err) {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log('Topic ' + topicName + ' created');
-//         }
+admin.createTopic({
+    topic: topicName,
+    num_partitions: 1,
+    replication_factor: 3,
+    config: { 'retention.ms': (24 * 60 * 60 * 1000).toString() }
+},
+    function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Topic ' + topicName + ' created');
+        }
 
-//         // carry on if topic created or topic already exists (code 36)
-//         if (!err || err.code == 36) {
-//             runLoops();
-//             console.log("This sample app will run until interrupted.");
-//             admin.disconnect();
-//         } else {
-//             shutdown(-1);
-//         }
-//     }
-// );
+        // carry on if topic created or topic already exists (code 36)
+        if (!err || err.code == 36) {
+            runLoops();
+            console.log("This sample app will run until interrupted.");
+            admin.disconnect();
+        } else {
+            shutdown(-1);
+        }
+    }
+);
 
-runLoops();
+// runLoops();
 
 // Build and start the producer/consumer
 function runLoops() {
