@@ -4,6 +4,12 @@ This sample application uses an Apache Kafka based messaging service to orchestr
 
 You will simulate this pattern using a check processing example. First you will create a UI application which will be used to upload checks to Object Storage and generate messages indicating work to be done. Next, you will create a separate worker application which will asynchronously process the user uploaded checks when it receives messages.
 
+**Check Scanner** is composed of:
+    - **Check Upload** UI microservice
+    - **Check Processor** worker microservice 
+    - **Object Storage** for storing files
+    - **Event Streams** as a work queue
+
 
 ![](./assets/Architecture.png)
 
