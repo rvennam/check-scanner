@@ -3,7 +3,7 @@
 IBM Cloud Event Streams is a fast, scalable, fully managed messaging service, based on Apache Kafka, an open-source, high-throughput messaging system which provides a low-latency platform for handling real-time data feeds.
 
 1. In your `IBM Cloud` tab, click on [Catalog](https://cloud.ibm.com/catalog), create a **Event Streams** service.
-   1. **Plan**: **Lite**
+   1. **Plan**: **Standard**
    2. **Service name**: `<your-initials>-es`. For example: `rv-es`
    3. Select a resource group and click **Create**
 2. Under **Manage**, switch to **Topics** tab.
