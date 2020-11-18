@@ -9,3 +9,4 @@ pubsub-worker/.ibm-project
 .env
 node_modules
 _book
+workshop/.DS_Store
