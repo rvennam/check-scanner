@@ -1,7 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
-* [Create Account and Get Cluster](getting-started/get_started.md)
+* [OpenShift Cluster](getting-started/get_started.md)
 * [Deploy Check Upload](part1-learn_openshift/exercise-deploy-upload.md)
 * [Create Object Storage](part1-learn_openshift/exercise-create-cos-service.md)
 * [Deploy Check Processor](part1-learn_openshift/exercise-deploy-processor.md)

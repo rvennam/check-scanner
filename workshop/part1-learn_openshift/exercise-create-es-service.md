@@ -10,12 +10,15 @@ IBM Cloud Event Streams is a fast, scalable, fully managed messaging service, ba
    1. Click on **Create topic** and provide `work-topic` as the Topic name. Click **Next**
    2. Select **1** partition, click **Next** and choose **A day** of Message retention.
    3. Click **Create topic**
-3. Provide the service credentials to your application
+   ![](../assets/create-topic.png)
+3. Create the service credentials
    1. **Service Credentials** -> **New credential** -> **Add**
    2. Expand **Service credentials-1** and then click on the Copy icon.
    ![copy cos credential](../assets/copy-cos-credential.png)
 
 You've now created a Event Streams instance and have the credentials copied to your clipboard. Let's give these credentials to your application.
+
+The Secret object type provides a mechanism to hold sensitive information such as passwords and keys. These secrets can then be added to your application.
 
 1. In your OpenShift dashboard tab, click on **Secrets** 
 2. **Create** -> **Key/Value Secret**
@@ -26,15 +29,15 @@ You've now created a Event Streams instance and have the credentials copied to y
    4. **Create**
    5. **Add Secret to Workload** -> **Select a workload** -> **check-processor** -> **Save**
 
-Bind the secret to Check Upload app as well:
+Bind the secret to the Check Upload app as well:
 
 1. Click on **Secrets** 
 2. Click on **es-credentials**
 3. **Add Secret to Workload** -> **Select a workload** -> **check-upload** -> **Save**
 
-Both of your applications will restart with the new sets of credentials. 
+Both of your applications will restart with the new sets of credentials (new pods will spin up and the old pods will be terminated).
 
-Visit your Check Upload application and upload the sample image again. This time, you will see that the check getting processed in a few seconds. 
+Visit your Check Upload application and upload the sample image again. This time, you will see that the check getting processed in a few seconds. Check Upload app uploaded the check image to object storage and sent a message to Event Streams. Check Processor app consumed this message, retrieved the image from Object Storage and processed the image.
 
 ![](../assets/check-scanner-ui.png)
 

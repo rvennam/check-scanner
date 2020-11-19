@@ -2,7 +2,7 @@
 
 IBM Cloud Object Storage is encrypted and dispersed across multiple geographic locations, and accessed over HTTP using a REST API. It provides flexible, cost-effective, and scalable cloud storage for unstructured data. You will use this to store the files uploaded by the Check Upload application.
 
-1. In your `IBM Cloud` tab, click on [Catalog](https://cloud.ibm.com/catalog), create a **Cloud Object Storage service**,
+1. In your **IBM Cloud** tab, click on [Catalog](https://cloud.ibm.com/catalog), create a **Cloud Object Storage service**,
    1. **Plan**: **Standard**
    2. **Service name**: `<your-initials>-cos`. For example: `rv-cos`
    3. Select a resource group and click **Create**
@@ -13,14 +13,16 @@ IBM Cloud Object Storage is encrypted and dispersed across multiple geographic l
    3. **Location** : **us-geo**  
    4. Scroll down and and click **Create bucket**
    ![](../assets/cos-bucket-create.png)
-4. Provide the service credentials to your application
+4. Create the service credentials
    1. **Service Credentials** -> **New credential** -> **Add**
    2. Expand **Service credentials-1** and then click on the Copy icon.
    ![copy cos credential](../assets/copy-cos-credential.png)
 
 You've now created a Object Storage instance and have the credentials copied to your clipboard. Lets give these credentials to your application.
 
-1. In your OpenShift dashboard tab, click on **Secrets** 
+The Secret object type provides a mechanism to hold sensitive information such as passwords and keys. These secrets can then be added to your application.
+
+1. In your OpenShift web console tab, click on **Secrets** 
 2. **Create** -> **Key/Value Secret**
    1. **Secret Name** : `cos-credentials`
    2. **Key** : `OBJECTSTORAGE_CREDENTIALS`

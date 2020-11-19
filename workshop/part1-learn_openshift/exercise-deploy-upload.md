@@ -43,7 +43,7 @@ Your app is now being built and deployed. OpenShift will retrieve the source cod
 
 ## View the Check Upload app
 
-1. Select the app and check on **Resources**. You should see your Pods, Builds, Services and Routes.
+1. Select the app and check on **Resources**. You should see your Pods, Builds, Services and Routes. Have a look around. 
 
     ![](../assets/ocp-topo-app-details.png)
 
@@ -64,7 +64,7 @@ Your app is now being built and deployed. OpenShift will retrieve the source cod
 
     ![Pod Logs 1](../assets/check-upload-pod-logs1.png)
 
-    Notice the lines `Event Streams credentials not found!` and `Object Storage credentials not found!`
+    Notice the lines `Event Streams credentials not found!` and `Object Storage credentials not found!`. We haven't configured these yet. 
 
 4. Click back to the **Topology** and select your app again. Click on the url under **Routes** to open your application with the URL.
 
