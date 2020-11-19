@@ -139,7 +139,7 @@
                     
                         <b>1.2.</b>
                     
-                    Create Account and Get Cluster
+                    OpenShift Cluster
             
                 </a>
             
@@ -294,10 +294,13 @@
 <li>Under <strong>Manage</strong>, switch to <strong>Topics</strong> tab.<ol>
 <li>Click on <strong>Create topic</strong> and provide <code>work-topic</code> as the Topic name. Click <strong>Next</strong></li>
 <li>Select <strong>1</strong> partition, click <strong>Next</strong> and choose <strong>A day</strong> of Message retention.</li>
-<li>Click <strong>Create topic</strong></li>
+<li>Click <strong>Create topic</strong>
+     <a href="../assets/create-topic.png" rel="grouped" title="" target="_self" class="fancybox">
+       <img src="../assets/create-topic.png" alt="">
+     </a></li>
 </ol>
 </li>
-<li>Provide the service credentials to your application<ol>
+<li>Create the service credentials<ol>
 <li><strong>Service Credentials</strong> -&gt; <strong>New credential</strong> -&gt; <strong>Add</strong></li>
 <li>Expand <strong>Service credentials-1</strong> and then click on the Copy icon.
      <a href="../assets/copy-cos-credential.png" rel="grouped" title="copy cos credential" target="_self" class="fancybox">
@@ -307,6 +310,7 @@
 </li>
 </ol>
 <p>You&apos;ve now created a Event Streams instance and have the credentials copied to your clipboard. Let&apos;s give these credentials to your application.</p>
+<p>The Secret object type provides a mechanism to hold sensitive information such as passwords and keys. These secrets can then be added to your application.</p>
 <ol>
 <li>In your OpenShift dashboard tab, click on <strong>Secrets</strong> </li>
 <li><strong>Create</strong> -&gt; <strong>Key/Value Secret</strong><ol>
@@ -321,14 +325,14 @@
 </ol>
 </li>
 </ol>
-<p>Bind the secret to Check Upload app as well:</p>
+<p>Bind the secret to the Check Upload app as well:</p>
 <ol>
 <li>Click on <strong>Secrets</strong> </li>
 <li>Click on <strong>es-credentials</strong></li>
 <li><strong>Add Secret to Workload</strong> -&gt; <strong>Select a workload</strong> -&gt; <strong>check-upload</strong> -&gt; <strong>Save</strong></li>
 </ol>
-<p>Both of your applications will restart with the new sets of credentials. </p>
-<p>Visit your Check Upload application and upload the sample image again. This time, you will see that the check getting processed in a few seconds. </p>
+<p>Both of your applications will restart with the new sets of credentials (new pods will spin up and the old pods will be terminated).</p>
+<p>Visit your Check Upload application and upload the sample image again. This time, you will see that the check getting processed in a few seconds. Check Upload app uploaded the check image to object storage and sent a message to Event Streams. Check Processor app consumed this message, retrieved the image from Object Storage and processed the image.</p>
 <p>     <a href="../assets/check-scanner-ui.png" rel="grouped" title="" target="_self" class="fancybox">
        <img src="../assets/check-scanner-ui.png" alt="">
      </a></p>
@@ -376,7 +380,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Create Event Streams service","level":"1.6","depth":1,"next":{"title":"Logging and Monitoring","level":"1.7","depth":1,"path":"part1-learn_openshift/exercise-logging-monitoring.md","ref":"part1-learn_openshift/exercise-logging-monitoring.md","articles":[]},"previous":{"title":"Deploy Check Processor","level":"1.5","depth":1,"path":"part1-learn_openshift/exercise-deploy-processor.md","ref":"part1-learn_openshift/exercise-deploy-processor.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"IBM Cloud Lab using OpenShift, Event Streams and Object Storage"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"IBM Cloud Lab using OpenShift, Event Streams and Object Storage","gitbook":"3.2.3"},"file":{"path":"part1-learn_openshift/exercise-create-es-service.md","mtime":"2020-11-18T19:18:50.619Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-18T19:20:44.595Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Create Event Streams service","level":"1.6","depth":1,"next":{"title":"Logging and Monitoring","level":"1.7","depth":1,"path":"part1-learn_openshift/exercise-logging-monitoring.md","ref":"part1-learn_openshift/exercise-logging-monitoring.md","articles":[]},"previous":{"title":"Deploy Check Processor","level":"1.5","depth":1,"path":"part1-learn_openshift/exercise-deploy-processor.md","ref":"part1-learn_openshift/exercise-deploy-processor.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"IBM Cloud Lab using OpenShift, Event Streams and Object Storage"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"IBM Cloud Lab using OpenShift, Event Streams and Object Storage","gitbook":"3.2.3"},"file":{"path":"part1-learn_openshift/exercise-create-es-service.md","mtime":"2020-11-19T03:41:22.376Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-19T03:43:20.447Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
