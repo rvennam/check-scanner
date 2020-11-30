@@ -33,7 +33,7 @@ In OpenShift Container Platform, projects are used to group and isolate related 
    
 2. **Application Name**: Remove all characters and leave the field empty.
    
-3. **Name**: `check-upload`
+3. **Name**: `check-upload` (Change from check-scanner)
 
     ![](../assets/check-upload-name.png)
    
