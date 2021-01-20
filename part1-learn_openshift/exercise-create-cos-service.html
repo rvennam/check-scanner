@@ -287,7 +287,7 @@
 <ol>
 <li>In your <strong>IBM Cloud</strong> tab, click on <a href="https://cloud.ibm.com/catalog" target="_blank">Catalog</a>, create a <strong>Cloud Object Storage service</strong>,<ol>
 <li><strong>Plan</strong>: <strong>Standard</strong></li>
-<li><strong>Service name</strong>: <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>your-initials</span><span class="token punctuation">&gt;</span></span>-cos</code>. For example: <code>rv-cos</code></li>
+<li><strong>Service name</strong>: <code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>your-initials</span><span class="token punctuation">&gt;</span></span>-cos</code>. For example: <code>rrv-cos</code></li>
 <li>Select a resource group and click <strong>Create</strong></li>
 </ol>
 </li>
@@ -323,7 +323,7 @@
        <img src="../assets/paste-cos-credential.png" alt="paste cos credential">
      </a></li>
 <li><strong>Create</strong></li>
-<li><strong>Add Secret to Workload</strong> -&gt; <strong>Select a workload</strong> -&gt; <strong>check-upload</strong></li>
+<li><strong>Add Secret to Workload</strong> -&gt; <strong>Select a workload</strong> -&gt; <strong>check-scanner-upload</strong></li>
 <li><strong>Save</strong></li>
 </ol>
 </li>
@@ -337,7 +337,7 @@
    3. **Value** : Enter the value you set for the bucket name above
    ![paste cos credential](../assets/paste-cos-bucket.png)
    1. **Create**
-   2. **Add Secret to Workload** -> **Select a workload** -> **check-upload**
+   2. **Add Secret to Workload** -> **Select a workload** -> **check-scanner-upload**
    3. **Save** -->
 <p>Your application pod will restart with these new object storage credentials. Visit your application route again. You should now be able to upload images and have them be stored in Object Storage. </p>
 <p>Download this sample check image and upload it to the app. Right click and save this image to your computer:
@@ -392,7 +392,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Create Object Storage","level":"1.4","depth":1,"next":{"title":"Deploy Check Processor","level":"1.5","depth":1,"path":"part1-learn_openshift/exercise-deploy-processor.md","ref":"part1-learn_openshift/exercise-deploy-processor.md","articles":[]},"previous":{"title":"Deploy Check Upload","level":"1.3","depth":1,"path":"part1-learn_openshift/exercise-deploy-upload.md","ref":"part1-learn_openshift/exercise-deploy-upload.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"IBM Cloud Lab using OpenShift, Event Streams and Object Storage"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"IBM Cloud Lab using OpenShift, Event Streams and Object Storage","gitbook":"3.2.3"},"file":{"path":"part1-learn_openshift/exercise-create-cos-service.md","mtime":"2020-11-30T15:24:03.908Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-30T15:25:54.527Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Create Object Storage","level":"1.4","depth":1,"next":{"title":"Deploy Check Processor","level":"1.5","depth":1,"path":"part1-learn_openshift/exercise-deploy-processor.md","ref":"part1-learn_openshift/exercise-deploy-processor.md","articles":[]},"previous":{"title":"Deploy Check Upload","level":"1.3","depth":1,"path":"part1-learn_openshift/exercise-deploy-upload.md","ref":"part1-learn_openshift/exercise-deploy-upload.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"IBM Cloud Lab using OpenShift, Event Streams and Object Storage"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"IBM Cloud Lab using OpenShift, Event Streams and Object Storage","gitbook":"3.2.3"},"file":{"path":"part1-learn_openshift/exercise-create-cos-service.md","mtime":"2021-01-20T18:53:55.612Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-01-20T19:45:37.724Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

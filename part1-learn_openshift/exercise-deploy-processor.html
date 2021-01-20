@@ -291,19 +291,10 @@
 </li>
 <li><p>This time, let&apos;s deploy the application by selecting <strong>From Dockerfile</strong>.</p>
 </li>
-<li><p>Enter the repository <code>https://github.com/rvennam/check-scanner</code> in the Git Repo URL field.</p>
+<li><p>Enter the repository <code>https://github.com/rvennam/check-scanner-processor</code> in the Git Repo URL field.</p>
 </li>
-<li><p>Expand <strong>Show Advanced Git Options</strong> and under <strong>Context Dir</strong> enter <code>/check-processor</code></p>
-<p>      <a href="../assets/import-check-scanner.png" rel="grouped" title="" target="_self" class="fancybox">
-       <img src="../assets/import-check-scanner.png" alt="">
-     </a></p>
-</li>
-<li><p>Under <strong>General</strong></p>
-<ul>
-<li><strong>Application Name</strong>: Remove all characters and leave the field empty.</li>
-<li><strong>Name</strong>: <code>check-processor</code></li>
-</ul>
-</li>
+</ol>
+<ol>
 <li><p>Uncheck <strong>Create a route to the application</strong>. This application does not have a UI.</p>
 </li>
 <li><p>Click <strong>Create</strong> at the bottom of the window to build and deploy the application.</p>
@@ -315,13 +306,13 @@
 <ol>
 <li>In your OpenShift dashboard tab, click on <strong>Secrets</strong> </li>
 <li>Click on <strong>cos-credentials</strong></li>
-<li><strong>Add Secret to Workload</strong> -&gt; <strong>Select a workload</strong> -&gt; <strong>check-processor</strong> -&gt; <strong>Save</strong></li>
+<li><strong>Add Secret to Workload</strong> -&gt; <strong>Select a workload</strong> -&gt; <strong>check-scanner-processor</strong> -&gt; <strong>Save</strong></li>
 </ol>
 <!-- Bind the bucket name secret as well:
 
 1. Click on **Secrets** 
 2. Click on **cos-bucketname**
-3. **Add Secret to Workload** -> **Select a workload** -> **check-processor** -> **Save** -->
+3. **Add Secret to Workload** -> **Select a workload** -> **check-scanner-processor** -> **Save** -->
 <p>Check Processor app is now able retrieve images from Object Storage. However, we still need a message bus to tell the app when a new image is ready. Let&apos;s make that next.</p>
 
                                 
@@ -366,7 +357,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Deploy Check Processor","level":"1.5","depth":1,"next":{"title":"Create Event Streams service","level":"1.6","depth":1,"path":"part1-learn_openshift/exercise-create-es-service.md","ref":"part1-learn_openshift/exercise-create-es-service.md","articles":[]},"previous":{"title":"Create Object Storage","level":"1.4","depth":1,"path":"part1-learn_openshift/exercise-create-cos-service.md","ref":"part1-learn_openshift/exercise-create-cos-service.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"IBM Cloud Lab using OpenShift, Event Streams and Object Storage"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"IBM Cloud Lab using OpenShift, Event Streams and Object Storage","gitbook":"3.2.3"},"file":{"path":"part1-learn_openshift/exercise-deploy-processor.md","mtime":"2020-11-30T15:24:03.908Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2020-11-30T15:25:54.527Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Deploy Check Processor","level":"1.5","depth":1,"next":{"title":"Create Event Streams service","level":"1.6","depth":1,"path":"part1-learn_openshift/exercise-create-es-service.md","ref":"part1-learn_openshift/exercise-create-es-service.md","articles":[]},"previous":{"title":"Create Object Storage","level":"1.4","depth":1,"path":"part1-learn_openshift/exercise-create-cos-service.md","ref":"part1-learn_openshift/exercise-create-cos-service.md","articles":[]},"dir":"ltr"},"config":{"plugins":["prism","-highlight","collapsible-chapters","hints","copy-code-button","back-to-top-button","fancybox","web-header","codetabs"],"root":"workshop","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"webheader":{"headerTitle":"IBM Cloud Lab using OpenShift, Event Streams and Object Storage"},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"fancybox":{"helpers":{"buttons":{}},"openEffect":"elastic","closeEffect":"elastic"},"web-header":{},"search":{},"collapsible-chapters":{},"codetabs":{},"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"copy-code-button":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":true}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"IBM Cloud Lab using OpenShift, Event Streams and Object Storage","gitbook":"3.2.3"},"file":{"path":"part1-learn_openshift/exercise-deploy-processor.md","mtime":"2021-01-20T18:54:36.989Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-01-20T19:45:37.724Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
