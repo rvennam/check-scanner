@@ -27,7 +27,7 @@ In OpenShift Container Platform, projects are used to group and isolate related 
 
 1. Under **Builder**, notice that **Node.js** is automatically selected
    
-    ![](../assets/check-upload-name.png)
+    ![](../assets/ocp-configure-git.png)
    
 2. Click **Create** at the bottom of the window to build and deploy the application.
 

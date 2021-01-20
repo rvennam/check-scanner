@@ -2,12 +2,11 @@
 
 1. Confirm you're in the **Developer** view. Make sure your `check-scanner` project is selected and click **+Add**
 
-    ![](../assets/check-ui-topology.png)
+    ![](../assets/create-from-docker.png)
 
 2. This time, let's deploy the application by selecting **From Dockerfile**.
 
 3. Enter the repository `https://github.com/rvennam/check-scanner-processor` in the Git Repo URL field.
-
 
 4. Uncheck **Create a route to the application**. This application does not have a UI.
    
