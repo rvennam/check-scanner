@@ -1,1 +1,0 @@
-Temp dir for uploaded images

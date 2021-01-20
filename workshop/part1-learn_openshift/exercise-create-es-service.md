@@ -27,13 +27,13 @@ The Secret object type provides a mechanism to hold sensitive information such a
    3. **Value** : Press Cmd+V(mac)/Ctrl-V(Windows) to paste from your clipboard. 
    ![paste cos credential](../assets/paste-es-credential.png)
    4. **Create**
-   5. **Add Secret to Workload** -> **Select a workload** -> **check-processor** -> **Save**
+   5. **Add Secret to Workload** -> **Select a workload** -> **check-scanner-processor** -> **Save**
 
 Bind the secret to the Check Upload app as well:
 
 1. Click on **Secrets** 
 2. Click on **es-credentials**
-3. **Add Secret to Workload** -> **Select a workload** -> **check-upload** -> **Save**
+3. **Add Secret to Workload** -> **Select a workload** -> **check-scanner-upload** -> **Save**
 
 Both of your applications will restart with the new sets of credentials (new pods will spin up and the old pods will be terminated).
 

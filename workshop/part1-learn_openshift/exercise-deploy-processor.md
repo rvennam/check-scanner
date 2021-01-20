@@ -6,19 +6,12 @@
 
 2. This time, let's deploy the application by selecting **From Dockerfile**.
 
-3. Enter the repository `https://github.com/rvennam/check-scanner` in the Git Repo URL field.
+3. Enter the repository `https://github.com/rvennam/check-scanner-processor` in the Git Repo URL field.
 
-4. Expand **Show Advanced Git Options** and under **Context Dir** enter `/check-processor`
 
-    ![](../assets/import-check-scanner.png)
-
-5. Under **General**
-    - **Application Name**: Remove all characters and leave the field empty.
-    - **Name**: `check-processor`
-
-6. Uncheck **Create a route to the application**. This application does not have a UI.
+4. Uncheck **Create a route to the application**. This application does not have a UI.
    
-7. Click **Create** at the bottom of the window to build and deploy the application.
+5. Click **Create** at the bottom of the window to build and deploy the application.
 
 Your application is being deployed.
 
@@ -27,12 +20,12 @@ Let's share the credentials of the Object Storage service to this application to
 
 1. In your OpenShift dashboard tab, click on **Secrets** 
 2. Click on **cos-credentials**
-3. **Add Secret to Workload** -> **Select a workload** -> **check-processor** -> **Save**
+3. **Add Secret to Workload** -> **Select a workload** -> **check-scanner-processor** -> **Save**
 
 <!-- Bind the bucket name secret as well:
 
 1. Click on **Secrets** 
 2. Click on **cos-bucketname**
-3. **Add Secret to Workload** -> **Select a workload** -> **check-processor** -> **Save** -->
+3. **Add Secret to Workload** -> **Select a workload** -> **check-scanner-processor** -> **Save** -->
 
 Check Processor app is now able retrieve images from Object Storage. However, we still need a message bus to tell the app when a new image is ready. Let's make that next.

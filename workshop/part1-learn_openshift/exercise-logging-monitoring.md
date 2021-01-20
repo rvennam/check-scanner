@@ -8,7 +8,7 @@ Since we only created one pod, seeing our logs will be straight forward.
 
 1. Ensure that you're in the **Developer** view. Then, navigate to **Topology**.
 
-2. Navigate to your Pod by selecting your **check-processor** app, then clicking the name of the Pod under **Pods**.
+2. Navigate to your Pod by selecting your **check-scanner-processor** app, then clicking the name of the Pod under **Pods**.
    
 3. Click on **View Logs** next to your Pods to see streaming logs from your running application.
 
@@ -56,7 +56,7 @@ OpenShift provides a web interface to Prometheus, which enables you to run Prome
 1. The Metrics page is accessible in the **Administrator** perspective by clicking **Monitoring → Metrics**.
 2. A query expression can be entered.  Paste in the following to get a look at our frontend:
    ```
-   sum(container_cpu_usage_seconds_total{container="check-upload"})
+   sum(container_cpu_usage_seconds_total{container="check-scanner-upload"})
    ```
    {:pre}
 3. Click on the **Graph** tab.  Note that the times are GMT:
