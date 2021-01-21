@@ -1,6 +1,6 @@
 # Access the OpenShift web console
 
-1. In the [IBM Cloud Dashboard](https://cloud.ibm.com), switch to the Instructors account (top right dropdown)  and click on **Clusters** in the **Resource Summary** tile.
+<!-- 1. In the [IBM Cloud Dashboard](https://cloud.ibm.com), switch to the Instructors account (top right dropdown)  and click on **Clusters** in the **Resource Summary** tile.
 
     ![Find the Resource Summary tile](../assets/dashboard.png)
 
@@ -10,9 +10,9 @@
 
 3. You can also see your cluster in the list of OpenShift clusters [IBM Cloud Clusters Dashboard](https://cloud.ibm.com/kubernetes/clusters?platformType=openshift)
 
-    ![Clusters Dashboard](../assets/cluster-dashboard.png)
+    ![Clusters Dashboard](../assets/cluster-dashboard.png) -->
 
-4. Have a look around!
+4. You should already be on this Cluster detail page. Have a look around and get to know your cluster!
 
     ![Launch the OpenShift web console](../assets/cluster-overview.png)
 

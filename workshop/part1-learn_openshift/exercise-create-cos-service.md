@@ -1,8 +1,10 @@
 ## Create an IBM Cloud Object Storage service
 
-IBM Cloud Object Storage is encrypted and dispersed across multiple geographic locations, and accessed over HTTP using a REST API. It provides flexible, cost-effective, and scalable cloud storage for unstructured data. You will use this to store the files uploaded by the Check Upload application.
+The Object Storage service is encrypted and dispersed across multiple geographic locations, and accessed over HTTP using a REST API. It provides flexible, cost-effective, and scalable cloud storage for unstructured data. You will use this to store the files uploaded by the Check Upload application.
 
-1. In your **IBM Cloud** tab, click on [Catalog](https://cloud.ibm.com/catalog), create a **Cloud Object Storage service**,
+![](../assets/Architecture-cos.png)
+
+1. In your **IBM Cloud** tab, click on [Catalog](https://cloud.ibm.com/catalog), create a **Object Storage** service,
    1. **Plan**: **Standard**
    2. **Service name**: `<your-initials>-cos`. For example: `rrv-cos`
    3. Select a resource group and click **Create**
@@ -19,6 +21,8 @@ IBM Cloud Object Storage is encrypted and dispersed across multiple geographic l
    ![copy cos credential](../assets/copy-cos-credential.png)
 
 You've now created a Object Storage instance and have the credentials copied to your clipboard. Lets give these credentials to your application.
+
+### Bind the credentials to your app
 
 The Secret object type provides a mechanism to hold sensitive information such as passwords and keys. These secrets can then be added to your application.
 
@@ -44,12 +48,16 @@ The Secret object type provides a mechanism to hold sensitive information such a
    2. **Add Secret to Workload** -> **Select a workload** -> **check-scanner-upload**
    3. **Save** -->
    
-Your application pod will restart with these new object storage credentials. Visit your application route again. You should now be able to upload images and have them be stored in Object Storage. 
+Your application will restart with these new object storage credentials. 
 
-Download this sample check image and upload it to the app. Right click and save this image to your computer:
+### Upload a sample check image to your app
+
+1. Visit your application route again. You can find it again by going to **Topology**, clicking on your app, and then clicking on the **URL** under **Routes**.
+
+2. You should now be able to upload images and have them be stored in Object Storage. Download this sample image by right clicking and saving this image to your computer:
 ![sample check](../assets/sample-check.png)
 
-Upload it to your Check Upload app.
+3. Upload the check image to your Check Upload app.
 ![check-upload-check1](../assets/check-upload-check1.png)
 
-Notice that the checks are stuck in "awaiting" status. We haven't deployed our Check Processor application yet. Let's do that next.
+The check image is now stored in Object Storage. However, notice that the checks are stuck in "awaiting" status. We haven't deployed our Check Processor application yet. Let's do that next.

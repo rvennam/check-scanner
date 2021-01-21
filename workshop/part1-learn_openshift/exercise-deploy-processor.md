@@ -1,5 +1,7 @@
 ## Deploy the Check Processor application
 
+![](../assets/Architecture-check-processor.png)
+
 1. Confirm you're in the **Developer** view. Make sure your `check-scanner` project is selected and click **+Add**
 
     ![](../assets/create-from-docker.png)
@@ -12,7 +14,7 @@
    
 5. Click **Create** at the bottom of the window to build and deploy the application.
 
-Your application is being deployed.
+Your application is being deployed. Just like before, keep an eye on your Build Logs to see the status.
 
 ## Bind Object Storage credentials to Check Processor
 Let's share the credentials of the Object Storage service to this application too. We already created a secret with the credentials. We now just need to bind that secret to this application as well.

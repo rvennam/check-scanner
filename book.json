@@ -3,7 +3,7 @@
     "title": "IBM Cloud Lab using OpenShift, Event Streams and Object Storage",
     "pluginsConfig": {
       "theme-default": {
-        "showLevel": true
+        "showLevel": false
       },
       "fancybox": {
         "openEffect": "elastic",

@@ -1,10 +1,12 @@
 # Deploying the Check Upload application
 
-In this exercise, you'll deploy the first application - Check Upload. Check Upload is a simple UI for uploading images of checks. You can find the sample application GitHub repository here: [https://github.com/rvennam/check-scanner](https://github.com/rvennam/check-scanner)
+In this exercise, you'll deploy the first application - Check Upload. Check Upload is a simple UI for uploading images of checks. You can find the sample application GitHub repository here: [https://github.com/rvennam/check-scanner-upload](https://github.com/rvennam/check-scanner-upload)
+
+![](../assets/Architecture-check-upload.png)
 
 ## Create Check Scanner project
 
-In OpenShift Container Platform, projects are used to group and isolate related objects. As an administrator, you can give developers access to certain projects, allow them to create their own, and give them administrative rights within individual projects.
+In OpenShift Container Platform, projects are used to group and isolate related objects. As an administrator, you can give developers access to certain projects, and the developers will create applications inside the project.
 
 1. Select the **Projects** view to display all the projects.
 
@@ -23,15 +25,19 @@ In OpenShift Container Platform, projects are used to group and isolate related 
 
 1. Let's deploy the application by selecting **From Git**.
 
-1. Enter the repository `https://github.com/rvennam/check-scanner-upload` in the Git Repo URL field.
+1. Enter the repository `https://github.com/rvennam/check-scanner-upload` in the Git Repo URL field and click anywhere outside of the field.
 
 1. Under **Builder**, notice that **Node.js** is automatically selected
    
     ![](../assets/ocp-configure-git.png)
    
-2. Click **Create** at the bottom of the window to build and deploy the application.
+2. Keep the default options and click **Create** at the bottom of the window to build and deploy the application.
 
-Your app is now being built and deployed. OpenShift will retrieve the source code from GitHub, build a container image, push the image to the image registry, and then run a container in a pod.
+Your app is now being built and deployed. OpenShift will:
+    1. retrieve the source code from GitHub
+    2. build a container Image
+    3. push the Image to the Image Registry
+    4. create a container from the image and run it inside a Pod
 
 ## View the Check Upload app
 
@@ -48,11 +54,11 @@ Your app is now being built and deployed. OpenShift will retrieve the source cod
 
     You should see that looks like this:
     ```
-    Successfully pushed image-registry.openshift-image-registry.svc:5000/check-scanner/check-upload@sha256:e98f9373ec8864a92a155ced589712722cc26670d265ee209e60a78343325688
+    Successfully pushed image-registry.openshift-image-registry.svc:5000/check-scanner/check-scanner-upload@sha256:e98f9373ec8864a92a155ced589712722cc26670d265ee209e60a78343325688
     Push successful
     ```
 
-3. Once the build is complete, you should see the **Pod** will switch to **Running**. Click on **View logs**
+3. Once the build is complete, go back or click back to the **Topology** and select your app again. In the **Pods** section, click on **View logs** next to your running Pod
 
     ![Pod Logs 1](../assets/check-upload-pod-logs1.png)
 

@@ -2,6 +2,8 @@
 
 IBM Cloud Event Streams is a fast, scalable, fully managed messaging service, based on Apache Kafka, an open-source, high-throughput messaging system which provides a low-latency platform for handling real-time data feeds.
 
+![](../assets/Architecture-es.png)
+
 1. In your `IBM Cloud` tab, click on [Catalog](https://cloud.ibm.com/catalog), create a **Event Streams** service.
    1. **Plan**: **Standard**
    2. **Service name**: `<your-initials>-es`. For example: `rv-es`
@@ -35,7 +37,7 @@ Bind the secret to the Check Upload app as well:
 2. Click on **es-credentials**
 3. **Add Secret to Workload** -> **Select a workload** -> **check-scanner-upload** -> **Save**
 
-Both of your applications will restart with the new sets of credentials (new pods will spin up and the old pods will be terminated).
+Both of your applications will restart with the new sets of credentials (new pods will spin up and the old pods will be terminated). You can watch the status in Topology.
 
 Visit your Check Upload application and upload the sample image again. This time, you will see that the check getting processed in a few seconds. Check Upload app uploaded the check image to object storage and sent a message to Event Streams. Check Processor app consumed this message, retrieved the image from Object Storage and processed the image.
 
